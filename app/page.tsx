@@ -4,6 +4,14 @@ import Link from "next/link";
 
 const businesses = [
   {
+    id: "aria-emily",
+    name: "Aria Emily Logistics",
+    type: "Premium Moving",
+    priority: "High",
+    description: "Professional logistics & high-trust moving hub for Sarasota, Miami, and Jupiter.",
+    image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=1000"
+  },
+  {
     id: "gazmir-loshi",
     name: "Gazmir Loshi V",
     type: "Agency Hub",
