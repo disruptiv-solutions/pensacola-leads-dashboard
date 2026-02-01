@@ -4,6 +4,14 @@ import Link from "next/link";
 
 const businesses = [
   {
+    id: "layton-pool-decks",
+    name: "Layton Pool Decks",
+    type: "Concrete & Pool Decks",
+    priority: "High",
+    description: "Coastal luxury pool deck design center with 5-year guarantee and seasonal booking tracker.",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=1000"
+  },
+  {
     id: "carden-outdoor-escapes",
     name: "Carden Outdoor Escapes",
     type: "Landscape & Hardscape",

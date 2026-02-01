@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { 
   Shield, 
   MapPin, 
+  Activity,
   Ruler, 
   Trees, 
   Fence, 
