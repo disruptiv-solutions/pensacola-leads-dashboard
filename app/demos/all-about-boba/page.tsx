@@ -88,7 +88,7 @@ const MENU_ITEMS = [
     category: "Snacks", 
     price: 5.00, 
     description: "Fish-shaped waffle filled with custard or red bean",
-    image: "https://images.unsplash.com/photo-1590478367373-8c6b0c14e1ed?auto=format&fit=crop&q=80&w=800"
+    image: "https://images.unsplash.com/photo-1582716401301-b2407dc7563d?auto=format&fit=crop&q=80&w=800"
   },
   { 
     name: "Mango Coconut Snow Ice", 
