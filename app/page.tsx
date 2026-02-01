@@ -4,6 +4,14 @@ import Link from "next/link";
 
 const businesses = [
   {
+    id: "aa-mobile-detailing",
+    name: "AA Mobile Detailing",
+    type: "Automotive Care",
+    priority: "High",
+    description: "Premium mobile detailing command center with ceramic coating and real-time booking.",
+    image: "https://images.unsplash.com/photo-1601362840469-51e4d8d58785?auto=format&fit=crop&q=80&w=1000"
+  },
+  {
     id: "wagyumama-ranch",
     name: "WagyuMama Ranch",
     type: "Agricultural Education",
