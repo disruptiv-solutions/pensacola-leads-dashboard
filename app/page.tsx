@@ -4,6 +4,14 @@ import Link from "next/link";
 
 const businesses = [
   {
+    id: "wagyumama-ranch",
+    name: "WagyuMama Ranch",
+    type: "Agricultural Education",
+    priority: "High",
+    description: "Dual-campus education hub with location-intelligent curriculum and real-time enrollment.",
+    image: "https://images.unsplash.com/photo-1500076656116-558758c991c1?auto=format&fit=crop&q=80&w=1000"
+  },
+  {
     id: "james-debris-logistics",
     name: "James Debris Logistics",
     type: "Automated Removal",
