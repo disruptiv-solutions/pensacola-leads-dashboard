@@ -4,6 +4,14 @@ import Link from "next/link";
 
 const businesses = [
   {
+    id: "all-about-boba",
+    name: "All About Boba Café",
+    type: "Asian Café & Boba",
+    priority: "High",
+    description: "Interactive Asian café experience with drink builder, cultural storytelling, and Guam-inspired flavors.",
+    image: "https://images.unsplash.com/photo-1525385133512-2f3bdd039054?auto=format&fit=crop&q=80&w=1000"
+  },
+  {
     id: "layton-pool-decks",
     name: "New Horizon Concrete & Solutions",
     type: "Concrete & Pool Decks",
