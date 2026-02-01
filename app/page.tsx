@@ -4,6 +4,14 @@ import Link from "next/link";
 
 const businesses = [
   {
+    id: "guy-brothers-roofing",
+    name: "Guy Brothers Roofing",
+    type: "Storm Response",
+    priority: "High",
+    description: "Regional Storm Response Center. Professional dispatch and real-time storm tracking hub.",
+    image: "https://images.unsplash.com/photo-1631545866282-299942475527?auto=format&fit=crop&q=80&w=1000"
+  },
+  {
     id: "victoria-cleaning",
     name: "Victoria P. Kelly",
     type: "Cleaning Membership",
