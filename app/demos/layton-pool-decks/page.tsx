@@ -341,11 +341,11 @@ export default function LaytonPoolDecks() {
               NO CRACKS. NO FLAWS. GUARANTEED.
             </div>
             <h1 className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-[0.9] text-white">
-              FLAWLESS<br />
-              <span className="text-[#FFA726]">POOL DECKS</span>
+              NEW HORIZON<br />
+              <span className="text-[#FFA726]">CONCRETE</span>
             </h1>
             <p className="max-w-3xl mx-auto text-white/90 text-xl md:text-2xl font-bold leading-relaxed">
-              Premium concrete craftsmanship for your coastal paradise.<br />
+              Premium pool deck & concrete solutions for your coastal paradise.<br />
               Serving Pensacola & the Gulf Coast.
             </p>
           </motion.div>
@@ -534,13 +534,16 @@ export default function LaytonPoolDecks() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
           <div className="space-y-6">
             <div className="text-4xl font-black tracking-tighter uppercase">
-              FLAWLESS<br />
-              <span className="text-[#FFA726]">POOL DECKS</span>
+              NEW HORIZON<br />
+              <span className="text-[#FFA726]">CONCRETE & SOLUTIONS</span>
             </div>
             <p className="text-white/70 font-bold text-sm max-w-xs leading-relaxed">
               Premium concrete pool deck installation. 5-year warranty. 
               Serving Pensacola & the Gulf Coast.
             </p>
+            <div className="text-xs text-white/50 font-bold uppercase">
+              Layton, Owner & Lead Craftsman
+            </div>
             <div className="flex items-center gap-1">
               {[...Array(5)].map((_, i) => (
                 <Star key={i} className="w-5 h-5 fill-[#FFA726] text-[#FFA726]" />
@@ -551,7 +554,7 @@ export default function LaytonPoolDecks() {
           <div className="text-right space-y-4">
             <div className="text-xs font-black uppercase tracking-widest text-[#FFA726]">Licensed & Insured</div>
             <div className="text-sm font-bold text-white/50 uppercase">
-              © 2026 LAYTON_POOL_DECKS<br />
+              © 2026 NEW_HORIZON_CONCRETE_&_SOLUTIONS_LLC<br />
               PENSACOLA • GULF_BREEZE • NAVARRE
             </div>
           </div>

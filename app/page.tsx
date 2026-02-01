@@ -5,7 +5,7 @@ import Link from "next/link";
 const businesses = [
   {
     id: "layton-pool-decks",
-    name: "Layton Pool Decks",
+    name: "New Horizon Concrete & Solutions",
     type: "Concrete & Pool Decks",
     priority: "High",
     description: "Coastal luxury pool deck design center with 5-year guarantee and seasonal booking tracker.",
