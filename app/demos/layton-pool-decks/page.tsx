@@ -42,7 +42,7 @@ const CONCRETE_FINISHES = [
     durability: 90, 
     maintenance: "Low",
     description: "Decorative patterns mimicking stone, brick, or tile",
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800"
+    image: "/new-horizons/stamped-concrete.jpg"
   },
   { 
     id: "stained", 
@@ -51,7 +51,7 @@ const CONCRETE_FINISHES = [
     durability: 85, 
     maintenance: "Low",
     description: "Rich, translucent color variations",
-    image: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=800"
+    image: "/new-horizons/acid-stain.jpg"
   },
   { 
     id: "polished", 
@@ -60,7 +60,7 @@ const CONCRETE_FINISHES = [
     durability: 95, 
     maintenance: "Very Low",
     description: "Smooth, glossy finish with modern appeal",
-    image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&q=80&w=800"
+    image: "/new-horizons/polished concrete.jpg"
   },
   { 
     id: "aggregate", 
@@ -69,7 +69,7 @@ const CONCRETE_FINISHES = [
     durability: 88, 
     maintenance: "Medium",
     description: "Textured surface with natural stone visibility",
-    image: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&q=80&w=800"
+    image: "/new-horizons/exposed-aggregate.jpg"
   },
 ];
 
@@ -97,17 +97,17 @@ const PORTFOLIO_PROJECTS = [
     finish: "Stamped Concrete",
     sqft: "1,200 sq ft",
     timeline: "6 days",
-    before: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&q=80&w=800",
-    after: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800"
+    before: "/new-horizons/luxury-pool-deck-before.jpg",
+    after: "/new-horizons/luxury-pool-deck-after.jpg"
   },
   {
-    title: "Resort-Style Deck",
+    title: "Residential Driveway",
     location: "Gulf Breeze, FL",
     finish: "Exposed Aggregate",
     sqft: "850 sq ft",
     timeline: "5 days",
-    before: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&q=80&w=800",
-    after: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=800"
+    before: "/new-horizons/driveway-before.jpg",
+    after: "/new-horizons/driveway-after.jpg"
   },
 ];
 
