@@ -16,7 +16,13 @@ import {
   DollarSign,
   Activity,
   Network,
-  Menu
+  Menu,
+  X,
+  Building2,
+  Mail,
+  Phone as PhoneIcon,
+  MapPinned,
+  Briefcase
 } from "lucide-react";
 
 const PLAYS = [
@@ -79,6 +85,43 @@ const BENEFITS = [
 export default function Home() {
   const [openPlay, setOpenPlay] = useState("launch");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showDirectoryForm, setShowDirectoryForm] = useState(false);
+  const [formData, setFormData] = useState({
+    businessName: "",
+    ownerName: "",
+    email: "",
+    phone: "",
+    address: "",
+    category: "",
+    description: ""
+  });
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Directory submission:", formData);
+    setFormSubmitted(true);
+    setTimeout(() => {
+      setShowDirectoryForm(false);
+      setFormSubmitted(false);
+      setFormData({
+        businessName: "",
+        ownerName: "",
+        email: "",
+        phone: "",
+        address: "",
+        category: "",
+        description: ""
+      });
+    }, 2000);
+  };
 
   return (
     <div className="bg-[#0f1115] text-white font-['Space_Grotesk',sans-serif] antialiased selection:bg-blue-500 selection:text-white">
@@ -356,9 +399,12 @@ export default function Home() {
                 </div>
 
                 <div className="pt-4">
-                  <Link href="/demo-pages" className="inline-flex h-12 items-center justify-center rounded-lg bg-white px-6 text-sm font-bold text-[#0f1115] transition-transform hover:scale-105">
+                  <button 
+                    onClick={() => setShowDirectoryForm(true)}
+                    className="inline-flex h-12 items-center justify-center rounded-lg bg-white px-6 text-sm font-bold text-[#0f1115] transition-transform hover:scale-105"
+                  >
                     Join the Directory
-                  </Link>
+                  </button>
                 </div>
               </div>
             </div>
@@ -420,6 +466,212 @@ export default function Home() {
           </button>
         </div>
       </main>
+
+      {/* Directory Form Modal */}
+      {showDirectoryForm && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+          <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-[#1a1d24] rounded-2xl border border-slate-700 shadow-2xl">
+            {/* Close Button */}
+            <button
+              onClick={() => setShowDirectoryForm(false)}
+              className="absolute top-4 right-4 p-2 text-slate-400 hover:text-white transition-colors rounded-lg hover:bg-slate-800"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            <div className="p-8">
+              {!formSubmitted ? (
+                <>
+                  <div className="mb-8">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-blue-500">
+                        <Building2 className="w-6 h-6 text-white" />
+                      </div>
+                      <div>
+                        <h2 className="text-3xl font-bold">Join the Directory</h2>
+                        <p className="text-slate-400 text-sm">Get listed in Pensacola's premier business directory</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <form onSubmit={handleFormSubmit} className="space-y-6">
+                    {/* Business Name */}
+                    <div>
+                      <label className="block text-sm font-bold text-slate-300 mb-2">
+                        Business Name *
+                      </label>
+                      <div className="relative">
+                        <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                        <input
+                          type="text"
+                          name="businessName"
+                          value={formData.businessName}
+                          onChange={handleFormChange}
+                          required
+                          className="w-full bg-[#0f1115] border border-slate-700 rounded-lg pl-11 pr-4 py-3 text-white placeholder-slate-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-colors"
+                          placeholder="Your Business Name"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Owner Name */}
+                    <div>
+                      <label className="block text-sm font-bold text-slate-300 mb-2">
+                        Owner / Contact Name *
+                      </label>
+                      <div className="relative">
+                        <Users className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                        <input
+                          type="text"
+                          name="ownerName"
+                          value={formData.ownerName}
+                          onChange={handleFormChange}
+                          required
+                          className="w-full bg-[#0f1115] border border-slate-700 rounded-lg pl-11 pr-4 py-3 text-white placeholder-slate-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-colors"
+                          placeholder="John Smith"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Email & Phone */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <label className="block text-sm font-bold text-slate-300 mb-2">
+                          Email *
+                        </label>
+                        <div className="relative">
+                          <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                          <input
+                            type="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleFormChange}
+                            required
+                            className="w-full bg-[#0f1115] border border-slate-700 rounded-lg pl-11 pr-4 py-3 text-white placeholder-slate-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-colors"
+                            placeholder="you@business.com"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-bold text-slate-300 mb-2">
+                          Phone *
+                        </label>
+                        <div className="relative">
+                          <PhoneIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                          <input
+                            type="tel"
+                            name="phone"
+                            value={formData.phone}
+                            onChange={handleFormChange}
+                            required
+                            className="w-full bg-[#0f1115] border border-slate-700 rounded-lg pl-11 pr-4 py-3 text-white placeholder-slate-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-colors"
+                            placeholder="(850) 555-0123"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Address */}
+                    <div>
+                      <label className="block text-sm font-bold text-slate-300 mb-2">
+                        Business Address *
+                      </label>
+                      <div className="relative">
+                        <MapPinned className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                        <input
+                          type="text"
+                          name="address"
+                          value={formData.address}
+                          onChange={handleFormChange}
+                          required
+                          className="w-full bg-[#0f1115] border border-slate-700 rounded-lg pl-11 pr-4 py-3 text-white placeholder-slate-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-colors"
+                          placeholder="123 Main St, Pensacola, FL 32501"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Category */}
+                    <div>
+                      <label className="block text-sm font-bold text-slate-300 mb-2">
+                        Business Category *
+                      </label>
+                      <div className="relative">
+                        <Briefcase className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                        <select
+                          name="category"
+                          value={formData.category}
+                          onChange={handleFormChange}
+                          required
+                          className="w-full bg-[#0f1115] border border-slate-700 rounded-lg pl-11 pr-4 py-3 text-white focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-colors appearance-none cursor-pointer"
+                        >
+                          <option value="">Select a category</option>
+                          <option value="automotive">Automotive</option>
+                          <option value="construction">Construction</option>
+                          <option value="food-beverage">Food & Beverage</option>
+                          <option value="health-wellness">Health & Wellness</option>
+                          <option value="home-services">Home Services</option>
+                          <option value="professional-services">Professional Services</option>
+                          <option value="retail">Retail</option>
+                          <option value="other">Other</option>
+                        </select>
+                        <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500 pointer-events-none" />
+                      </div>
+                    </div>
+
+                    {/* Description */}
+                    <div>
+                      <label className="block text-sm font-bold text-slate-300 mb-2">
+                        Business Description *
+                      </label>
+                      <textarea
+                        name="description"
+                        value={formData.description}
+                        onChange={handleFormChange}
+                        required
+                        rows={4}
+                        className="w-full bg-[#0f1115] border border-slate-700 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-colors resize-none"
+                        placeholder="Tell us about your business, services, and what makes you unique..."
+                      />
+                    </div>
+
+                    {/* Submit Button */}
+                    <div className="flex gap-4 pt-4">
+                      <button
+                        type="submit"
+                        className="flex-1 h-12 rounded-lg bg-blue-500 text-white font-bold shadow-[0_0_20px_rgba(13,127,242,0.4)] transition-all hover:bg-blue-600 hover:scale-105 hover:shadow-[0_0_30px_rgba(13,127,242,0.6)]"
+                      >
+                        Submit Application
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setShowDirectoryForm(false)}
+                        className="px-6 h-12 rounded-lg border border-slate-700 text-slate-300 font-bold hover:bg-slate-800 transition-colors"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </form>
+                </>
+              ) : (
+                <div className="py-12 text-center">
+                  <div className="mb-6 inline-flex h-20 w-20 items-center justify-center rounded-full bg-green-500/20">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-500">
+                      <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                  </div>
+                  <h3 className="text-2xl font-bold mb-2">Application Submitted!</h3>
+                  <p className="text-slate-400">
+                    Thank you for your interest. We'll review your application and get back to you within 24 hours.
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
