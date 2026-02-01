@@ -50,7 +50,7 @@ const SERVICE_CHECKLIST = [
 // --- Components ---
 
 const HazardBorder = () => (
-  <div className="fixed inset-0 pointer-events-none z-[100] border-[12px] border-transparent">
+  <div className="fixed inset-0 pointer-events-none z-[100]">
     <div className="absolute top-0 left-0 right-0 h-3 bg-[repeating-linear-gradient(45deg,#fbbf24,#fbbf24_20px,#000_20px,#000_40px)]" />
     <div className="absolute bottom-0 left-0 right-0 h-3 bg-[repeating-linear-gradient(45deg,#fbbf24,#fbbf24_20px,#000_20px,#000_40px)]" />
     <div className="absolute left-0 top-0 bottom-0 w-3 bg-[repeating-linear-gradient(45deg,#fbbf24,#fbbf24_20px,#000_20px,#000_40px)]" />
