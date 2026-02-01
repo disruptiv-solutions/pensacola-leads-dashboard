@@ -3,356 +3,384 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { 
-  Phone, 
-  Wrench, 
+  Zap, 
   Rocket, 
-  Check, 
-  Map, 
-  Eye, 
+  Bot, 
   TrendingUp,
-  Store,
-  Star,
-  ArrowLeft,
+  ChevronDown,
   ArrowRight,
-  Menu,
-  Zap,
-  RefreshCw,
-  ChevronRight
+  MapPin,
+  Users,
+  Megaphone,
+  Timer,
+  DollarSign,
+  Activity,
+  Network,
+  Menu
 } from "lucide-react";
 
-const OFFERS = [
+const PLAYS = [
   {
-    id: "launch-site",
+    id: "launch",
     icon: Rocket,
-    name: "The Launch Site",
-    badge: "Best Value",
-    badgeColor: "bg-blue-100 dark:bg-blue-900 text-primary",
-    price: 997,
-    period: "one-time",
-    description: "Perfect for new businesses needing a professional presence fast.",
+    title: "LAUNCH",
+    subtitle: "High-converting websites",
+    description: "Forget 3-month timelines. We build high-performance, mobile-first websites in under a week. Designed for conversion, not just aesthetics.",
     features: [
-      "High-converting one-pager",
-      "Mobile optimized & Fast",
-      "Basic SEO Foundation",
-      "5-Day Delivery"
+      "5-Day Turnaround",
+      "SEO Foundation Built-in",
+      "Mobile Optimized"
     ],
-    buttonText: "Get Started",
-    buttonStyle: "bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-900 dark:text-white",
-    featured: false
+    defaultOpen: true
   },
   {
-    id: "local-automations",
-    icon: RefreshCw,
-    name: "Local Automations",
-    badge: "Popular",
-    badgeColor: "bg-primary text-white",
-    price: 297,
-    period: "/mo",
-    description: "Automate your reputation and customer management.",
-    features: [
-      "Auto-review requests (SMS/Email)",
-      "Unified Inbox & CRM",
-      "Missed Call Text Back",
-      "Lead Capture Forms"
-    ],
-    buttonText: "Start Free Trial",
-    buttonStyle: "bg-primary hover:bg-blue-600 text-white shadow-lg shadow-blue-500/25",
-    featured: true
+    id: "automate",
+    icon: Bot,
+    title: "AUTOMATE",
+    subtitle: "Miss Zero Leads",
+    description: "Your business sleeps, your sales system shouldn't. We install SMS & Email bots that instantly follow up with leads and book appointments automatically.",
+    features: [],
+    defaultOpen: false
   },
   {
-    id: "directory-boost",
-    icon: Store,
-    name: "Directory Boost",
-    badge: "Add-on",
-    badgeColor: "bg-blue-100 dark:bg-blue-900 text-primary",
-    price: 97,
-    period: "/mo",
-    description: "Get found by locals on our exclusive community directory.",
-    features: [
-      "Premium Directory Listing",
-      "Featured Homepage Placement",
-      "High-Authority Local Backlink",
-      "Monthly Traffic Report"
-    ],
-    buttonText: "Join Directory",
-    buttonStyle: "bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-900 dark:text-white",
-    featured: false
+    id: "boost",
+    icon: TrendingUp,
+    title: "BOOST",
+    subtitle: "Pensacola Directory",
+    description: "Plug directly into our exclusive Pensacola Business Directory. Get instant visibility from local customers looking specifically for your services.",
+    features: [],
+    defaultOpen: false
   }
 ];
 
-const TESTIMONIALS = [
+const BENEFITS = [
   {
-    name: "Michael R.",
-    role: "Owner, Bayview Coffee",
-    rating: 5,
-    text: "The speed was incredible. We went from no website to a fully functional site and 5 new google reviews in less than a week. Highly recommend for any local shop.",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=100"
+    icon: Timer,
+    title: "Done in a Week",
+    description: "Speed is money. We launch your site and automations while others are still sending proposals."
   },
   {
-    name: "Sarah Jenkins",
-    role: "Director, Coastal Realty",
-    rating: 5,
-    text: "The Local Automations package changed how we handle leads. I don't miss calls anymore because the system texts them back instantly. It's paid for itself ten times over.",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=100"
+    icon: DollarSign,
+    title: "Fixed Pricing",
+    description: "No hourly billing surprises. Clear, upfront packages designed for small business budgets."
   },
   {
-    name: "David Chen",
-    role: "Manager, TechFix Pensacola",
-    rating: 5,
-    text: "Being part of the directory gave us an immediate boost in local SEO. We're finally showing up on the first page for our keywords. The team is professional and responsive.",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=100"
+    icon: Activity,
+    title: "Recurring Results",
+    description: "We don't just launch and leave. Our automations work 24/7 to turn traffic into paying customers."
+  },
+  {
+    icon: Network,
+    title: "Local Network",
+    description: "Join a community of Pensacola's top businesses. Cross-promote and grow together."
   }
 ];
 
 export default function Home() {
+  const [openPlay, setOpenPlay] = useState("launch");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white overflow-x-hidden">
+    <div className="bg-[#0f1115] text-white font-['Space_Grotesk',sans-serif] antialiased selection:bg-blue-500 selection:text-white">
+      <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Noto+Sans:wght@400;500;700&display=swap');
+        
+        .neon-text-glow {
+          text-shadow: 0 0 20px rgba(13, 127, 242, 0.5);
+        }
+        
+        @keyframes pulse-ring {
+          0% { transform: scale(0.8); opacity: 0.5; }
+          100% { transform: scale(2.4); opacity: 0; }
+        }
+        
+        .pulse-dot::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          background-color: #0d7ff2;
+          border-radius: 50%;
+          z-index: -1;
+          animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+      `}</style>
+
       {/* Top Navigation */}
-      <header className="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur">
-        <div className="px-4 md:px-10 py-3 flex items-center justify-between max-w-7xl mx-auto">
-          <div className="flex items-center gap-4">
-            <div className="w-8 h-8 text-blue-500">
-              <Zap className="w-8 h-8" />
+      <header className="fixed top-0 z-50 w-full border-b border-[#283039] bg-[#0f1115]/90 backdrop-blur-md">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center gap-2">
+            <div className="flex h-8 w-8 items-center justify-center rounded bg-blue-500 text-white">
+              <Zap className="w-5 h-5" />
             </div>
-            <h2 className="text-lg font-bold leading-tight tracking-tight">Digital Duo Studio</h2>
+            <span className="text-xl font-bold tracking-tight">Digital Duo Studio</span>
           </div>
           
-          <div className="hidden md:flex flex-1 justify-end gap-8 items-center">
-            <div className="flex items-center gap-6 lg:gap-9">
-              <a className="text-sm font-medium hover:text-blue-500 transition-colors" href="#offers">Offers</a>
-              <a className="text-sm font-medium hover:text-blue-500 transition-colors" href="#directory">Directory</a>
-              <a className="text-sm font-medium hover:text-blue-500 transition-colors" href="#process">Process</a>
-              <a className="text-sm font-medium hover:text-blue-500 transition-colors" href="#testimonials">Testimonials</a>
-            </div>
-            <button className="flex items-center justify-center rounded-lg h-10 px-6 bg-blue-500 hover:bg-blue-600 text-white text-sm font-bold transition-colors">
-              Contact Us
-            </button>
-          </div>
+          <nav className="hidden md:flex items-center gap-8">
+            <a className="text-sm font-medium text-slate-300 hover:text-white transition-colors" href="#playbook">The Playbook</a>
+            <a className="text-sm font-medium text-slate-300 hover:text-white transition-colors" href="#advantage">Local Advantage</a>
+            <a className="text-sm font-medium text-slate-300 hover:text-white transition-colors" href="#benefits">Why Us</a>
+          </nav>
           
-          <button className="md:hidden p-2" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+          <button className="hidden md:flex h-9 items-center justify-center rounded-lg bg-white px-4 text-sm font-bold text-[#0f1115] hover:bg-slate-200 transition-colors">
+            Get Started
+          </button>
+          
+          <button className="md:hidden p-2 text-slate-300 hover:text-white" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
             <Menu className="w-6 h-6" />
           </button>
         </div>
       </header>
 
-      <main className="flex flex-col w-full">
+      <main className="flex flex-col w-full pt-16">
         {/* Hero Section */}
-        <section className="relative px-4 py-12 md:py-20 lg:py-24 bg-white dark:bg-slate-900">
-          <div className="max-w-7xl mx-auto flex flex-col-reverse lg:flex-row gap-10 lg:gap-16 items-center">
-            <div className="flex flex-col gap-6 lg:w-1/2 text-center lg:text-left">
+        <section className="relative flex min-h-[85vh] w-full items-center justify-center overflow-hidden bg-[#0f1115] py-20 px-4">
+          {/* Background Grid & Glow */}
+          <div className="absolute inset-0 opacity-[0.07]" style={{
+            backgroundImage: 'linear-gradient(to right, #242832 1px, transparent 1px), linear-gradient(to bottom, #242832 1px, transparent 1px)',
+            backgroundSize: '40px 40px'
+          }}></div>
+          <div className="absolute -top-[20%] right-0 h-[600px] w-[600px] rounded-full bg-blue-500/10 blur-[120px]"></div>
+          <div className="absolute bottom-0 left-0 h-[400px] w-[400px] rounded-full bg-[#ccff00]/5 blur-[100px]"></div>
+
+          <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center text-center">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-blue-500">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+              </span>
+              Accepting New Clients
+            </div>
+
+            <h1 className="mb-6 text-5xl font-bold leading-[1.1] tracking-tight sm:text-7xl md:text-8xl neon-text-glow">
+              SCALE YOUR <br/>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400">LOCAL BUSINESS</span><br/>
+              <span className="text-blue-500">ON AUTOPILOT</span>
+            </h1>
+
+            <p className="mb-10 max-w-2xl text-lg text-slate-400 sm:text-xl md:text-2xl font-light">
+              Web Design + Automations + The Pensacola Directory Advantage. <br className="hidden sm:block"/>
+              Stop chasing leads. Let them come to you.
+            </p>
+
+            <div className="flex flex-col gap-4 sm:flex-row">
+              <button className="flex h-14 min-w-[200px] items-center justify-center rounded-lg bg-blue-500 px-8 text-base font-bold shadow-[0_0_20px_rgba(13,127,242,0.4)] transition-all hover:bg-blue-600 hover:scale-105 hover:shadow-[0_0_30px_rgba(13,127,242,0.6)]">
+                Start Growing Now
+              </button>
+              <Link href="/demo-pages" className="flex h-14 min-w-[200px] items-center justify-center rounded-lg border border-slate-700 bg-transparent px-8 text-base font-bold transition-all hover:border-slate-500 hover:bg-[#1a1d24]">
+                See Our Work
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Choose Your Play (Accordion) */}
+        <section className="relative w-full bg-[#0f1115] py-24 px-4 border-t border-[#283039]" id="playbook">
+          <div className="mx-auto max-w-6xl">
+            <div className="grid gap-12 lg:grid-cols-2 lg:gap-20">
+              {/* Sticky Content */}
+              <div className="flex flex-col justify-center lg:sticky lg:top-32 lg:h-fit">
+                <h2 className="mb-6 text-4xl font-bold uppercase leading-none tracking-tight md:text-6xl">
+                  Choose <br/>
+                  <span className="text-slate-600">Your Play</span>
+                </h2>
+                <p className="mb-8 text-lg text-slate-400 max-w-md">
+                  We don't do generic marketing. We run specific plays designed to get local businesses more customers, faster. Pick your starting point.
+                </p>
+                <div className="hidden lg:block">
+                  <a className="group inline-flex items-center gap-2 text-blue-500 font-bold hover:text-white transition-colors" href="#">
+                    View full pricing details 
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  </a>
+                </div>
+              </div>
+
+              {/* Accordion List */}
               <div className="flex flex-col gap-4">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-500 text-xs font-bold uppercase tracking-wider w-fit mx-auto lg:mx-0">
-                  <Zap className="w-4 h-4" />
-                  Pensacola's Fastest Agency
-                </div>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.1] tracking-tight">
-                  Modern Web & <span className="text-blue-500">Automations</span> for Pensacola Businesses
-                </h1>
-                <p className="text-slate-600 dark:text-slate-400 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                  Launch your site in days, not months. Automate your growth and dominate the local market with our streamlined digital solutions.
-                </p>
-              </div>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <a href="#offers" className="flex items-center justify-center rounded-lg h-12 px-8 bg-blue-500 hover:bg-blue-600 text-white text-base font-bold shadow-lg shadow-blue-500/20 transition-all transform hover:-translate-y-0.5">
-                  View Our Offers
-                </a>
-                <a href="#process" className="flex items-center justify-center rounded-lg h-12 px-8 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-base font-bold transition-colors">
-                  How It Works
-                </a>
-              </div>
-            </div>
-            <div className="w-full lg:w-1/2 aspect-video lg:aspect-square max-h-[500px] rounded-2xl overflow-hidden shadow-2xl relative group">
-              <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/20 to-transparent mix-blend-overlay z-10"></div>
-              <img 
-                src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1000"
-                alt="Modern office workspace"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-            </div>
-          </div>
-        </section>
-
-        {/* Offers Header */}
-        <section className="px-4 py-8 bg-slate-50 dark:bg-slate-950" id="offers">
-          <div className="max-w-7xl mx-auto text-center">
-            <h2 className="text-3xl font-bold leading-tight tracking-tight">Our Core Offers</h2>
-            <p className="mt-4 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-              Simple, transparent pricing for productized services that get results.
-            </p>
-          </div>
-        </section>
-
-        {/* Pricing Cards */}
-        <section className="px-4 pb-20 pt-8 bg-slate-50 dark:bg-slate-950">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {OFFERS.map((offer, idx) => {
-                const IconComponent = offer.icon;
-                return (
-                  <div
-                    key={offer.id}
-                    className={`flex flex-col gap-4 rounded-xl bg-white dark:bg-slate-800 p-8 shadow-sm hover:shadow-xl transition-all duration-300 relative overflow-hidden group ${
-                      offer.featured ? 'border-2 border-blue-500 lg:-translate-y-4' : 'border border-slate-200 dark:border-slate-700'
-                    }`}
-                  >
-                    <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                      <IconComponent className="w-20 h-20 text-blue-500" />
-                    </div>
-                    
-                    <div className="flex flex-col gap-1 z-10">
-                      <div className="flex items-center justify-between">
-                        <h3 className={`text-lg font-bold ${offer.featured ? 'text-blue-500' : ''}`}>
-                          {offer.name}
-                        </h3>
-                        <span className={`${offer.badgeColor} text-xs font-bold px-3 py-1 rounded-full`}>
-                          {offer.badge}
-                        </span>
-                      </div>
-                      <div className="flex items-baseline gap-1 mt-2">
-                        <span className="text-4xl font-black tracking-tight">
-                          ${offer.price}
-                        </span>
-                        <span className="text-slate-500 font-bold">{offer.period}</span>
-                      </div>
-                      <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
-                        {offer.description}
-                      </p>
-                    </div>
-
-                    <hr className="border-slate-100 dark:border-slate-700 my-2" />
-
-                    <div className="flex flex-col gap-3 flex-1 z-10">
-                      {offer.features.map((feature, i) => (
-                        <div key={i} className="flex gap-3 text-sm text-slate-700 dark:text-slate-300">
-                          <Check className="w-5 h-5 text-blue-500 shrink-0" />
-                          {feature}
-                        </div>
-                      ))}
-                    </div>
-
-                    <button className={`mt-6 w-full py-3 rounded-lg font-bold transition-colors z-10 ${offer.buttonStyle}`}>
-                      {offer.buttonText}
-                    </button>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-
-        {/* Directory Feature Section */}
-        <section className="px-4 py-16 md:py-24 bg-white dark:bg-slate-900 overflow-hidden" id="directory">
-          <div className="max-w-7xl mx-auto">
-            <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center">
-              <div className="flex flex-col gap-8 lg:w-1/2">
-                <div className="flex flex-col gap-4">
-                  <div className="flex items-center gap-2 text-blue-500 font-bold">
-                    <Map className="w-5 h-5" />
-                    <span>Local Growth Engine</span>
-                  </div>
-                  <h2 className="text-3xl md:text-4xl font-black leading-tight">
-                    The Pensacola Directory Integration
-                  </h2>
-                  <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-                    More than just a website. Gain immediate visibility through our exclusive Pensacola Community Directory. We drive local traffic directly to your new digital storefront from day one.
-                  </p>
-                </div>
-                
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <div className="flex flex-col gap-2 p-4 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
-                    <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-500 mb-2">
-                      <Eye className="w-5 h-5" />
-                    </div>
-                    <h4 className="font-bold">Immediate Visibility</h4>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">
-                      Get in front of local customers instantly through our established network.
-                    </p>
-                  </div>
-                  <div className="flex flex-col gap-2 p-4 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
-                    <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-500 mb-2">
-                      <TrendingUp className="w-5 h-5" />
-                    </div>
-                    <h4 className="font-bold">Local SEO Boost</h4>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">
-                      Enhance your rankings with a high-quality backlink from a trusted local hub.
-                    </p>
-                  </div>
-                </div>
-
-                <Link
-                  href="/demo-pages"
-                  className="w-fit flex items-center justify-center rounded-lg h-12 px-8 bg-blue-500 hover:bg-blue-600 text-white font-bold transition-colors"
-                >
-                  Explore The Directory
-                </Link>
-              </div>
-
-              <div className="lg:w-1/2 relative">
-                <div className="absolute -top-10 -right-10 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl"></div>
-                <div className="absolute -bottom-10 -left-10 w-64 h-64 bg-blue-400/10 rounded-full blur-3xl"></div>
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white dark:border-slate-800">
-                  <div className="w-full aspect-square bg-cover bg-center">
-                    <img 
-                      src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=800"
-                      alt="Map of Pensacola"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
+                {PLAYS.map((play) => {
+                  const IconComponent = play.icon;
+                  const isOpen = openPlay === play.id;
                   
-                  <div className="absolute bottom-6 left-6 right-6 bg-white dark:bg-slate-900 p-4 rounded-xl shadow-lg border border-slate-100 dark:border-slate-700 flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-lg bg-blue-500 flex items-center justify-center text-white shrink-0">
-                      <Store className="w-6 h-6" />
+                  return (
+                    <div
+                      key={play.id}
+                      className={`rounded-2xl border transition-all duration-300 ${
+                        isOpen 
+                          ? 'bg-[#1a1d24] border-blue-500/50' 
+                          : 'bg-[#0f1115] border-slate-800'
+                      }`}
+                    >
+                      <button
+                        onClick={() => setOpenPlay(isOpen ? "" : play.id)}
+                        className="flex w-full cursor-pointer items-center justify-between p-6 md:p-8 text-left"
+                      >
+                        <div className="flex items-center gap-6">
+                          <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full transition-colors ${
+                            isOpen ? 'bg-blue-500 text-white' : 'bg-slate-800 text-slate-400'
+                          }`}>
+                            <IconComponent className="w-6 h-6" />
+                          </div>
+                          <div>
+                            <h3 className="text-xl font-bold md:text-2xl">{play.title}</h3>
+                            <p className={`text-sm font-medium uppercase tracking-wider ${
+                              isOpen ? 'text-blue-400' : 'text-slate-500'
+                            }`}>
+                              {play.subtitle}
+                            </p>
+                          </div>
+                        </div>
+                        <div className={`transition-all duration-300 ${
+                          isOpen ? 'rotate-180 text-blue-500' : 'text-slate-500'
+                        }`}>
+                          <ChevronDown className="w-8 h-8" />
+                        </div>
+                      </button>
+
+                      {isOpen && (
+                        <div className="px-6 pb-8 md:px-8 md:pb-8 pt-0 pl-[calc(3rem+1.5rem)] md:pl-[calc(4rem+2rem)]">
+                          <p className="mb-6 text-slate-400 leading-relaxed">
+                            {play.description}
+                          </p>
+                          {play.features.length > 0 && (
+                            <ul className="mb-6 space-y-3">
+                              {play.features.map((feature, idx) => (
+                                <li key={idx} className="flex items-center gap-3 text-sm text-slate-300">
+                                  <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center">
+                                    <div className="w-2 h-2 bg-white rounded-full"></div>
+                                  </div>
+                                  {feature}
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                          <button className="text-sm font-bold bg-slate-700 hover:bg-slate-600 px-4 py-2 rounded-lg transition-colors">
+                            Select {play.title}
+                          </button>
+                        </div>
+                      )}
                     </div>
-                    <div>
-                      <p className="text-xs text-slate-500 uppercase font-bold">New Listing</p>
-                      <p className="font-bold">Your Business Name</p>
-                      <div className="flex text-yellow-400">
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} className="w-3 h-3 fill-current" />
-                        ))}
-                      </div>
-                    </div>
-                    <div className="ml-auto">
-                      <Check className="w-6 h-6 text-green-500" />
-                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* The Local Advantage Section */}
+        <section className="relative overflow-hidden bg-[#0f1115] py-24 px-4" id="advantage">
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0f1115] via-[#1a1d24]/50 to-[#0f1115] pointer-events-none"></div>
+          
+          <div className="relative mx-auto max-w-7xl">
+            <div className="mb-16 text-center">
+              <h2 className="text-4xl font-bold uppercase tracking-tight md:text-5xl lg:text-6xl">
+                The Local <span className="text-blue-500">Advantage</span>
+              </h2>
+              <p className="mx-auto mt-4 max-w-2xl text-slate-400 text-lg">
+                Don't just be online. Be local. Our exclusive directory funnels high-intent customers straight to you.
+              </p>
+            </div>
+
+            <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
+              {/* Map Visualization */}
+              <div className="relative rounded-2xl border border-slate-800 bg-[#161a21] p-2 shadow-2xl overflow-hidden group">
+                <div className="relative h-[400px] w-full rounded-xl bg-slate-800 overflow-hidden">
+                  <img 
+                    alt="Pensacola Map" 
+                    className="h-full w-full object-cover opacity-30 grayscale mix-blend-luminosity"
+                    src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=800"
+                  />
+                  
+                  {/* Glowing Nodes */}
+                  <div className="absolute top-1/4 left-1/4 h-3 w-3 rounded-full bg-blue-500 shadow-[0_0_15px_#0d7ff2] pulse-dot"></div>
+                  <div className="absolute top-1/2 left-1/2 h-4 w-4 rounded-full bg-blue-500 shadow-[0_0_20px_#0d7ff2] pulse-dot" style={{animationDelay: '0.5s'}}></div>
+                  <div className="absolute bottom-1/3 right-1/4 h-3 w-3 rounded-full bg-blue-500 shadow-[0_0_15px_#0d7ff2] pulse-dot" style={{animationDelay: '1s'}}></div>
+                  <div className="absolute top-1/3 right-1/3 h-2 w-2 rounded-full bg-blue-500 shadow-[0_0_10px_#0d7ff2] pulse-dot" style={{animationDelay: '1.2s'}}></div>
+                  
+                  {/* Connection Lines */}
+                  <svg className="absolute inset-0 h-full w-full pointer-events-none">
+                    <line stroke="#0d7ff2" strokeOpacity="0.4" strokeWidth="1" x1="25%" y1="25%" x2="50%" y2="50%" />
+                    <line stroke="#0d7ff2" strokeOpacity="0.4" strokeWidth="1" x1="50%" y1="50%" x2="75%" y2="66%" />
+                    <line stroke="#0d7ff2" strokeOpacity="0.4" strokeWidth="1" x1="50%" y1="50%" x2="66%" y2="33%" />
+                  </svg>
+                </div>
+
+                {/* Floating Data Card */}
+                <div className="absolute bottom-6 right-6 rounded-lg border border-slate-700 bg-[#0f1115]/90 p-4 backdrop-blur-md shadow-lg w-48">
+                  <div className="flex items-center gap-3 mb-2">
+                    <TrendingUp className="w-5 h-5 text-green-500" />
+                    <span className="text-xs font-bold text-slate-300 uppercase">Traffic Surge</span>
                   </div>
+                  <div className="text-2xl font-bold">+240%</div>
+                  <div className="text-xs text-slate-500">Local Impressions</div>
+                </div>
+              </div>
+
+              {/* Feature List */}
+              <div className="space-y-8">
+                <div className="flex gap-4">
+                  <div className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-500/20 text-blue-500">
+                    <MapPin className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold">Dominant Local Presence</h3>
+                    <p className="mt-2 text-slate-400">
+                      We position your brand exactly where Pensacola locals are looking. Skip the global competition and own your backyard.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4">
+                  <div className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-500/20 text-blue-500">
+                    <Users className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold">Community Trust</h3>
+                    <p className="mt-2 text-slate-400">
+                      Being part of the Digital Duo network signals reliability. Customers trust local directories over random Google searches.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4">
+                  <div className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-500/20 text-blue-500">
+                    <Megaphone className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold">Amplified Reach</h3>
+                    <p className="mt-2 text-slate-400">
+                      Your business gets featured in our monthly "Best of Pensacola" blasts, putting your offer in front of thousands of active subscribers.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="pt-4">
+                  <Link href="/demo-pages" className="inline-flex h-12 items-center justify-center rounded-lg bg-white px-6 text-sm font-bold text-[#0f1115] transition-transform hover:scale-105">
+                    Join the Directory
+                  </Link>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Process Section */}
-        <section className="px-4 py-16 md:py-24 bg-slate-50 dark:bg-slate-950" id="process">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold">The 3-Step Playbook</h2>
-              <p className="mt-4 text-slate-600 dark:text-slate-400">
-                Our standardized delivery process ensures quality and speed.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-              <div className="hidden md:block absolute top-12 left-[16%] right-[16%] h-0.5 bg-slate-200 dark:bg-slate-700 -z-10 border-t-2 border-dashed border-slate-300 dark:border-slate-600"></div>
-
-              {[
-                { icon: Phone, title: "Strategy Call", description: "We define your goals, target audience, and key offer in a focused 30-minute session." },
-                { icon: Wrench, title: "Rapid Build", description: "Our team builds your site and sets up automations within 5 business days." },
-                { icon: Rocket, title: "Growth Launch", description: "We launch your site, list you in the directory, and activate your review engine." }
-              ].map((step, idx) => {
-                const IconComponent = step.icon;
+        {/* Features Grid (Bento Box Style) */}
+        <section className="relative w-full bg-[#0b0c0f] py-24 px-4" id="benefits">
+          <div className="mx-auto max-w-5xl">
+            <h2 className="mb-12 text-center text-3xl font-bold">Why Digital Duo?</h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {BENEFITS.map((benefit, idx) => {
+                const IconComponent = benefit.icon;
                 return (
-                  <div key={idx} className="flex flex-col items-center text-center gap-4 group">
-                    <div className="w-24 h-24 rounded-full bg-white dark:bg-slate-800 border-4 border-white dark:border-slate-800 shadow-lg flex items-center justify-center text-blue-500 group-hover:scale-110 transition-transform duration-300 relative z-10">
-                      <IconComponent className="w-10 h-10" />
-                      <div className="absolute -top-2 -right-2 w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
-                        {idx + 1}
-                      </div>
+                  <div key={idx} className="group relative overflow-hidden rounded-2xl bg-[#1a1d24] p-8 transition-all hover:bg-[#20242c]">
+                    <div className="absolute right-0 top-0 h-24 w-24 translate-x-8 -translate-y-8 rounded-full bg-blue-500/5 blur-2xl transition-all group-hover:bg-blue-500/10"></div>
+                    <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-slate-800 text-white group-hover:bg-blue-500 group-hover:text-white transition-colors">
+                      <IconComponent className="w-6 h-6" />
                     </div>
-                    <h3 className="text-xl font-bold mt-2">{step.title}</h3>
-                    <p className="text-slate-600 dark:text-slate-400 max-w-xs">{step.description}</p>
+                    <h3 className="mb-2 text-xl font-bold">{benefit.title}</h3>
+                    <p className="text-slate-400">{benefit.description}</p>
                   </div>
                 );
               })}
@@ -360,127 +388,38 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Testimonials */}
-        <section className="px-4 py-16 md:py-24 bg-white dark:bg-slate-900" id="testimonials">
-          <div className="max-w-7xl mx-auto">
-            <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
-              <div>
-                <h2 className="text-3xl font-bold">Trusted by Pensacola Locals</h2>
-                <p className="mt-2 text-slate-600 dark:text-slate-400">
-                  Join dozens of local businesses growing with Digital Duo.
-                </p>
-              </div>
-              <div className="flex gap-2">
-                <button className="w-10 h-10 rounded-full border border-slate-200 dark:border-slate-700 flex items-center justify-center hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
-                  <ArrowLeft className="w-5 h-5" />
-                </button>
-                <button className="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center hover:bg-blue-600 transition-colors">
-                  <ArrowRight className="w-5 h-5" />
-                </button>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {TESTIMONIALS.map((testimonial, idx) => (
-                <div key={idx} className="p-6 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
-                  <div className="flex text-yellow-400 mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-current" />
-                    ))}
-                  </div>
-                  <p className="text-slate-700 dark:text-slate-300 mb-6 leading-relaxed">
-                    {testimonial.text}
-                  </p>
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-slate-300 overflow-hidden">
-                      <img src={testimonial.image} alt={testimonial.name} className="w-full h-full object-cover" />
-                    </div>
-                    <div>
-                      <p className="font-bold text-sm">{testimonial.name}</p>
-                      <p className="text-xs text-slate-500">{testimonial.role}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* CTA Section */}
-        <section className="px-4 py-20 bg-blue-500 text-white">
-          <div className="max-w-4xl mx-auto text-center flex flex-col items-center gap-6">
-            <h2 className="text-3xl md:text-5xl font-black tracking-tight">
-              Ready to Dominate Your Market?
-            </h2>
-            <p className="text-lg text-blue-100 max-w-2xl">
-              Stop losing customers to outdated tech. Get a modern site and automated growth engine today.
-            </p>
-            <button className="mt-4 px-8 py-4 bg-white text-blue-500 text-lg font-bold rounded-lg hover:bg-blue-50 transition-colors shadow-xl">
-              Get Your Free Strategy Call
-            </button>
-          </div>
-        </section>
-      </main>
-
-      {/* Footer */}
-      <footer className="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 pt-16 pb-8 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-            <div className="md:col-span-1 flex flex-col gap-4">
+        {/* Footer */}
+        <footer className="border-t border-[#283039] bg-[#0f1115] py-12 px-4 text-center md:text-left">
+          <div className="mx-auto max-w-7xl">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-6">
               <div className="flex items-center gap-2">
-                <Zap className="w-6 h-6 text-blue-500" />
-                <span className="font-bold text-lg">Digital Duo Studio</span>
+                <div className="flex h-8 w-8 items-center justify-center rounded bg-blue-500 text-white">
+                  <Zap className="w-5 h-5" />
+                </div>
+                <span className="text-xl font-bold">Digital Duo Studio</span>
               </div>
-              <p className="text-slate-500 text-sm leading-relaxed">
-                Helping Pensacola businesses grow through modern web design, automation, and community connection.
+              
+              <div className="flex gap-8 text-sm font-medium text-slate-400">
+                <a className="hover:text-white transition-colors" href="#">Terms</a>
+                <a className="hover:text-white transition-colors" href="#">Privacy</a>
+                <Link className="hover:text-white transition-colors" href="/demo-pages">Directory</Link>
+                <a className="hover:text-white transition-colors" href="#">Contact</a>
+              </div>
+              
+              <p className="text-xs text-slate-500">
+                © 2026 Digital Duo Studio. Built for Pensacola.
               </p>
             </div>
-            
-            <div>
-              <h4 className="font-bold mb-4">Services</h4>
-              <ul className="flex flex-col gap-2 text-sm text-slate-500">
-                <li><a className="hover:text-blue-500 transition-colors" href="#">Web Design</a></li>
-                <li><a className="hover:text-blue-500 transition-colors" href="#">Local Automations</a></li>
-                <li><a className="hover:text-blue-500 transition-colors" href="#">Directory Listing</a></li>
-                <li><a className="hover:text-blue-500 transition-colors" href="#">SEO Services</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="font-bold mb-4">Company</h4>
-              <ul className="flex flex-col gap-2 text-sm text-slate-500">
-                <li><a className="hover:text-blue-500 transition-colors" href="#">About Us</a></li>
-                <li><a className="hover:text-blue-500 transition-colors" href="#">Process</a></li>
-                <li><a className="hover:text-blue-500 transition-colors" href="#">Careers</a></li>
-                <li><a className="hover:text-blue-500 transition-colors" href="#">Contact</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="font-bold mb-4">Connect</h4>
-              <div className="flex gap-4">
-                <a className="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-slate-700 transition-colors" href="#">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
-                </a>
-                <a className="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-slate-700 transition-colors" href="#">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 014.15 2.525c.636-.247 1.363-.416 2.427-.465C7.673 2.013 8.044 2 10.328 2h1.988zm-.952 1.802h-1.034c-2.266 0-2.548.009-3.44.049-.864.04-1.332.186-1.644.31a2.75 2.75 0 00-1.02.663 2.75 2.75 0 00-.663 1.02c-.124.312-.27.78-.31 1.644-.04.892-.049 1.174-.049 3.44v1.034c0 2.266.009 2.548.049 3.44.04.864.186 1.332.31 1.644.145.372.337.67.663 1.02.35.326.648.518 1.02.663.312.124.78.27 1.644.31.892.04 1.174.049 3.44.049h1.034c2.266 0 2.548-.009 3.44-.049.864-.04 1.332-.186 1.644-.31a2.75 2.75 0 001.02-.663 2.75 2.75 0 00.663-1.02c.124-.312.27-.78.31-1.644.04-.892.049-1.174.049-3.44v-1.034c0-2.266-.009-2.548-.049-3.44-.04-.864-.186-1.332-.31-1.644a2.75 2.75 0 00-.663-1.02 2.75 2.75 0 00-1.02-.663c-.312-.124-.78-.27-1.644-.31-.892-.04-1.174-.049-3.44-.049zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"/></svg>
-                </a>
-                <a className="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-slate-700 transition-colors" href="#">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"/></svg>
-                </a>
-              </div>
-            </div>
           </div>
-          
-          <div className="border-t border-slate-200 dark:border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-400">
-            <p>© 2026 Digital Duo Studio. All rights reserved.</p>
-            <div className="flex gap-6">
-              <a className="hover:text-blue-500" href="#">Privacy Policy</a>
-              <a className="hover:text-blue-500" href="#">Terms of Service</a>
-            </div>
-          </div>
+        </footer>
+
+        {/* Sticky Mobile CTA */}
+        <div className="fixed bottom-0 z-40 w-full border-t border-slate-800 bg-[#0f1115]/90 p-4 backdrop-blur md:hidden">
+          <button className="w-full rounded-lg bg-blue-500 py-3 text-sm font-bold shadow-lg">
+            Start Growing Now
+          </button>
         </div>
-      </footer>
+      </main>
     </div>
   );
 }
