@@ -4,6 +4,14 @@ import Link from "next/link";
 
 const businesses = [
   {
+    id: "carden-outdoor-escapes",
+    name: "Carden Outdoor Escapes",
+    type: "Landscape & Hardscape",
+    priority: "High",
+    description: "Veteran-owned outdoor design studio with interactive project visualizers and military-grade execution.",
+    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1000"
+  },
+  {
     id: "florida-blacktop-paving",
     name: "Florida Blacktop Paving",
     type: "Commercial Asphalt",

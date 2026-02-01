@@ -58,7 +58,7 @@ const AsphaltFreshnessTimer = () => {
   const remaining = 6 - hoursAgo;
 
   return (
-    <div className="fixed top-6 left-6 z-50 pointer-events-none">
+    <div className="fixed top-6 right-6 z-50 pointer-events-none">
       <div className="bg-slate-900/90 backdrop-blur-md border-4 border-[#FF6B00] p-4 rounded-none shadow-[8px_8px_0px_rgba(255,107,0,0.3)] space-y-3 min-w-[280px]">
         <div className="flex justify-between items-center border-b-2 border-[#FF6B00]/30 pb-2">
           <span className="text-[10px] font-black text-[#FF6B00] uppercase tracking-widest">Asphalt Freshness</span>
