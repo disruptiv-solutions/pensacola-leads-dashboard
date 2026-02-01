@@ -97,8 +97,8 @@ const PORTFOLIO_PROJECTS = [
     finish: "Stamped Concrete",
     sqft: "1,200 sq ft",
     timeline: "6 days",
-    before: "/new-horizons/luxury-pool-deck-before.jpg",
-    after: "/new-horizons/luxury-pool-deck-after.jpg"
+    before: "/new-horizons/luxury-pool-deck-after.jpg",
+    after: "/new-horizons/luxury-pool-deck-before.jpg"
   },
   {
     title: "Residential Driveway",
@@ -106,8 +106,8 @@ const PORTFOLIO_PROJECTS = [
     finish: "Exposed Aggregate",
     sqft: "850 sq ft",
     timeline: "5 days",
-    before: "/new-horizons/driveway-before.jpg",
-    after: "/new-horizons/driveway-after.jpg"
+    before: "/new-horizons/driveway-after.jpg",
+    after: "/new-horizons/driveway-before.jpg"
   },
 ];
 
