@@ -4,6 +4,14 @@ import Link from "next/link";
 
 const businesses = [
   {
+    id: "erma-septic",
+    name: "Erma Septic Service",
+    type: "Emergency Sewer",
+    priority: "High",
+    description: "24/7 emergency septic pumping and repair across Alabama. Rapid dispatch.",
+    image: "https://images.unsplash.com/photo-1504328156602-ff144ced4d9b?auto=format&fit=crop&q=80&w=1000"
+  },
+  {
     id: "aria-emily",
     name: "Aria Emily Logistics",
     type: "Premium Moving",
