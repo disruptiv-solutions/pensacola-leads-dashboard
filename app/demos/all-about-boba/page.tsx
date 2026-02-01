@@ -17,7 +17,12 @@ import {
   Users,
   Calendar,
   ShoppingBag,
-  X
+  X,
+  Droplets,
+  Grape,
+  Cherry,
+  Apple,
+  Citrus
 } from "lucide-react";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -34,18 +39,18 @@ const MANGO_ORANGE = "#FF9F1C";
 const MILK_TEA_BEIGE = "#F5E6D3";
 
 const DRINK_BASES = [
-  { id: "milk-tea", name: "Milk Tea", price: 5.50, icon: "🥛" },
-  { id: "fruit-tea", name: "Fruit Tea", price: 5.00, icon: "🍓" },
-  { id: "coffee", name: "Coffee", price: 4.50, icon: "☕" },
-  { id: "refresher", name: "Refresher", price: 4.75, icon: "🍋" },
+  { id: "milk-tea", name: "Milk Tea", price: 5.50, icon: Droplets },
+  { id: "fruit-tea", name: "Fruit Tea", price: 5.00, icon: Cherry },
+  { id: "coffee", name: "Coffee", price: 4.50, icon: Coffee },
+  { id: "refresher", name: "Refresher", price: 4.75, icon: Citrus },
 ];
 
 const FLAVORS = [
-  { id: "ube", name: "Ube", color: "#8B7BA8", icon: "💜" },
-  { id: "matcha", name: "Matcha", color: "#88B04B", icon: "🍵" },
-  { id: "mango", name: "Mango", color: "#FF9F1C", icon: "🥭" },
-  { id: "taro", name: "Taro", color: "#A78BCA", icon: "🟣" },
-  { id: "strawberry", name: "Strawberry", color: "#FF6B9D", icon: "🍓" },
+  { id: "ube", name: "Ube", color: "#8B7BA8", icon: Grape },
+  { id: "matcha", name: "Matcha", color: "#88B04B", icon: Coffee },
+  { id: "mango", name: "Mango", color: "#FF9F1C", icon: Apple },
+  { id: "taro", name: "Taro", color: "#A78BCA", icon: Grape },
+  { id: "strawberry", name: "Strawberry", color: "#FF6B9D", icon: Cherry },
 ];
 
 const TOPPINGS = [
@@ -129,10 +134,10 @@ const TESTIMONIALS = [
 ];
 
 const CULTURAL_GLOSSARY = [
-  { term: "Ube", pronunciation: "OO-beh", definition: "Purple yam from the Philippines, naturally sweet and vibrant", origin: "🇵🇭 Philippines" },
-  { term: "Pandan", pronunciation: "PAN-dan", definition: "Tropical leaf with vanilla-like aroma, used in Southeast Asian desserts", origin: "🌴 Southeast Asia" },
-  { term: "Lychee", pronunciation: "LIE-chee", definition: "Sweet tropical fruit with floral notes and translucent flesh", origin: "🇨🇳 China" },
-  { term: "Matcha", pronunciation: "MAH-cha", definition: "Finely ground green tea powder, earthy and energizing", origin: "🇯🇵 Japan" },
+  { term: "Ube", pronunciation: "OO-beh", definition: "Purple yam from the Philippines, naturally sweet and vibrant", origin: "Philippines" },
+  { term: "Pandan", pronunciation: "PAN-dan", definition: "Tropical leaf with vanilla-like aroma, used in Southeast Asian desserts", origin: "Southeast Asia" },
+  { term: "Lychee", pronunciation: "LIE-chee", definition: "Sweet tropical fruit with floral notes and translucent flesh", origin: "China" },
+  { term: "Matcha", pronunciation: "MAH-cha", definition: "Finely ground green tea powder, earthy and energizing", origin: "Japan" },
 ];
 
 // --- Components ---
@@ -200,22 +205,25 @@ const DrinkBuilder = () => {
         <div className="space-y-3">
           <label className="text-xs font-black uppercase text-slate-600">Choose Your Base</label>
           <div className="grid grid-cols-2 gap-3">
-            {DRINK_BASES.map(base => (
-              <button
-                key={base.id}
-                onClick={() => setSelectedBase(base)}
-                className={cn(
-                  "p-4 border-2 transition-all text-center space-y-2",
-                  selectedBase.id === base.id
-                    ? "border-[#8B7BA8] bg-[#8B7BA8]/10"
-                    : "border-slate-300 bg-slate-50 hover:border-slate-400"
-                )}
-              >
-                <div className="text-3xl">{base.icon}</div>
-                <div className="text-sm font-bold uppercase">{base.name}</div>
-                <div className="text-xs text-slate-500">${base.price.toFixed(2)}</div>
-              </button>
-            ))}
+              {DRINK_BASES.map(base => {
+                const IconComponent = base.icon;
+                return (
+                  <button
+                    key={base.id}
+                    onClick={() => setSelectedBase(base)}
+                    className={cn(
+                      "p-4 border-2 transition-all text-center space-y-2",
+                      selectedBase.id === base.id
+                        ? "border-[#8B7BA8] bg-[#8B7BA8]/10"
+                        : "border-slate-300 bg-slate-50 hover:border-slate-400"
+                    )}
+                  >
+                    <IconComponent className="w-8 h-8 mx-auto text-[#8B7BA8]" />
+                    <div className="text-sm font-bold uppercase">{base.name}</div>
+                    <div className="text-xs text-slate-500">${base.price.toFixed(2)}</div>
+                  </button>
+                );
+              })}
           </div>
         </div>
 
@@ -223,21 +231,25 @@ const DrinkBuilder = () => {
         <div className="space-y-3">
           <label className="text-xs font-black uppercase text-slate-600">Add Flavor (+$0.50)</label>
           <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
-            {FLAVORS.map(flavor => (
-              <button
-                key={flavor.id}
-                onClick={() => setSelectedFlavor(selectedFlavor?.id === flavor.id ? null : flavor)}
-                className={cn(
-                  "p-3 border-2 transition-all text-center space-y-1",
-                  selectedFlavor?.id === flavor.id
-                    ? "border-[#8B7BA8] bg-[#8B7BA8]/10"
-                    : "border-slate-300 bg-slate-50 hover:border-slate-400"
-                )}
-              >
-                <div className="text-2xl">{flavor.icon}</div>
-                <div className="text-[10px] font-bold uppercase">{flavor.name}</div>
-              </button>
-            ))}
+            {FLAVORS.map(flavor => {
+              const IconComponent = flavor.icon;
+              return (
+                <button
+                  key={flavor.id}
+                  onClick={() => setSelectedFlavor(selectedFlavor?.id === flavor.id ? null : flavor)}
+                  className={cn(
+                    "p-3 border-2 transition-all text-center space-y-1",
+                    selectedFlavor?.id === flavor.id
+                      ? "border-[#8B7BA8] bg-[#8B7BA8]/10"
+                      : "border-slate-300 bg-slate-50 hover:border-slate-400"
+                  )}
+                  style={{ borderColor: selectedFlavor?.id === flavor.id ? flavor.color : undefined }}
+                >
+                  <IconComponent className="w-6 h-6 mx-auto" style={{ color: flavor.color }} />
+                  <div className="text-[10px] font-bold uppercase">{flavor.name}</div>
+                </button>
+              );
+            })}
           </div>
         </div>
 
@@ -435,7 +447,7 @@ export default function AllAboutBoba() {
               <div key={i} className="bg-white/10 backdrop-blur-sm border-2 border-white/30 p-6 space-y-3">
                 <div className="flex items-center justify-between">
                   <h4 className="text-2xl font-black uppercase">{item.term}</h4>
-                  <span className="text-2xl">{item.origin}</span>
+                  <span className="text-sm font-bold text-[#FF9F1C]">{item.origin}</span>
                 </div>
                 <div className="text-sm font-bold text-white/70 italic">Pronunciation: {item.pronunciation}</div>
                 <p className="text-base font-bold leading-relaxed">{item.definition}</p>
