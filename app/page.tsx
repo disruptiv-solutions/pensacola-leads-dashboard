@@ -17,7 +17,6 @@ import {
   Menu,
   Zap,
   RefreshCw,
-  Storefront,
   ChevronRight
 } from "lucide-react";
 
@@ -62,7 +61,7 @@ const OFFERS = [
   },
   {
     id: "directory-boost",
-    icon: Storefront,
+    icon: Store,
     name: "Directory Boost",
     badge: "Add-on",
     badgeColor: "bg-blue-100 dark:bg-blue-900 text-primary",
