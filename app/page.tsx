@@ -128,8 +128,36 @@ export default function Home() {
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Noto+Sans:wght@400;500;700&display=swap');
         
+        /* Custom scrollbar styling */
+        ::-webkit-scrollbar {
+          width: 10px;
+          height: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+          background: #0f1115;
+          border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+          background: linear-gradient(180deg, #667eea 0%, #4adee4 100%);
+          border-radius: 5px;
+          border: 2px solid #0f1115;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+          background: linear-gradient(180deg, #7c8ef5 0%, #5ee9ef 100%);
+          box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+        }
+        
+        /* Firefox scrollbar */
+        * {
+          scrollbar-width: thin;
+          scrollbar-color: #667eea #0f1115;
+        }
+        
         .neon-text-glow {
-          text-shadow: 0 0 20px rgba(13, 127, 242, 0.5);
+          text-shadow: 0 0 20px rgba(102, 126, 234, 0.6), 0 0 40px rgba(74, 222, 228, 0.4);
         }
         
         @keyframes pulse-ring {
@@ -144,7 +172,7 @@ export default function Home() {
           top: 0;
           width: 100%;
           height: 100%;
-          background-color: #0d7ff2;
+          background: linear-gradient(135deg, #667eea 0%, #4adee4 100%);
           border-radius: 50%;
           z-index: -1;
           animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
@@ -155,8 +183,8 @@ export default function Home() {
       <header className="fixed top-0 z-50 w-full border-b border-[#283039] bg-[#0f1115]/90 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded bg-blue-500 text-white">
-              <Zap className="w-5 h-5" />
+            <div className="flex h-8 w-8 items-center justify-center rounded bg-gradient-to-br from-[#667eea] to-[#4adee4]">
+              <Zap className="w-5 h-5 text-white" />
             </div>
             <span className="text-xl font-bold tracking-tight">Digital Duo Studio</span>
           </div>
@@ -185,14 +213,14 @@ export default function Home() {
             backgroundImage: 'linear-gradient(to right, #242832 1px, transparent 1px), linear-gradient(to bottom, #242832 1px, transparent 1px)',
             backgroundSize: '40px 40px'
           }}></div>
-          <div className="absolute -top-[20%] right-0 h-[600px] w-[600px] rounded-full bg-blue-500/10 blur-[120px]"></div>
-          <div className="absolute bottom-0 left-0 h-[400px] w-[400px] rounded-full bg-[#ccff00]/5 blur-[100px]"></div>
+          <div className="absolute -top-[20%] right-0 h-[600px] w-[600px] rounded-full bg-[#667eea]/10 blur-[120px]"></div>
+          <div className="absolute bottom-0 left-0 h-[400px] w-[400px] rounded-full bg-[#4adee4]/10 blur-[100px]"></div>
 
           <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center text-center">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-blue-500">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#4adee4]/30 bg-[#4adee4]/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#4adee4]">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#4adee4] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#4adee4]"></span>
               </span>
               Accepting New Clients
             </div>
@@ -200,7 +228,7 @@ export default function Home() {
             <h1 className="mb-6 text-5xl font-bold leading-[1.1] tracking-tight sm:text-7xl md:text-8xl neon-text-glow">
               SCALE YOUR <br/>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400">LOCAL BUSINESS</span><br/>
-              <span className="text-blue-500">ON AUTOPILOT</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#667eea] to-[#4adee4]">ON AUTOPILOT</span>
             </h1>
 
             <p className="mb-10 max-w-2xl text-lg text-slate-400 sm:text-xl md:text-2xl font-light">
@@ -209,10 +237,10 @@ export default function Home() {
             </p>
 
             <div className="flex flex-col gap-4 sm:flex-row">
-              <button className="flex h-14 min-w-[200px] items-center justify-center rounded-lg bg-blue-500 px-8 text-base font-bold shadow-[0_0_20px_rgba(13,127,242,0.4)] transition-all hover:bg-blue-600 hover:scale-105 hover:shadow-[0_0_30px_rgba(13,127,242,0.6)]">
+              <button className="flex h-14 min-w-[200px] items-center justify-center rounded-lg bg-gradient-to-r from-[#667eea] to-[#4adee4] px-8 text-base font-bold shadow-[0_0_20px_rgba(102,126,234,0.4)] transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(74,222,228,0.6)]">
                 Start Growing Now
               </button>
-              <Link href="/demo-pages" className="flex h-14 min-w-[200px] items-center justify-center rounded-lg border border-slate-700 bg-transparent px-8 text-base font-bold transition-all hover:border-slate-500 hover:bg-[#1a1d24]">
+              <Link href="/demo-pages" className="flex h-14 min-w-[200px] items-center justify-center rounded-lg border border-slate-700 bg-transparent px-8 text-base font-bold transition-all hover:border-[#4adee4] hover:bg-[#1a1d24]">
                 See Our Work
               </Link>
             </div>
@@ -233,9 +261,9 @@ export default function Home() {
                   We don't do generic marketing. We run specific plays designed to get local businesses more customers, faster. Pick your starting point.
                 </p>
                 <div className="hidden lg:block">
-                  <a className="group inline-flex items-center gap-2 text-blue-500 font-bold hover:text-white transition-colors" href="#">
+                  <a className="group inline-flex items-center gap-2 text-transparent bg-clip-text bg-gradient-to-r from-[#667eea] to-[#4adee4] font-bold hover:from-white hover:to-white transition-all" href="#">
                     View full pricing details 
-                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                    <ArrowRight className="w-4 h-4 text-[#4adee4] transition-transform group-hover:translate-x-1" />
                   </a>
                 </div>
               </div>
@@ -251,7 +279,7 @@ export default function Home() {
                       key={play.id}
                       className={`rounded-2xl border transition-all duration-300 ${
                         isOpen 
-                          ? 'bg-[#1a1d24] border-blue-500/50' 
+                          ? 'bg-[#1a1d24] border-[#667eea]/50 shadow-[0_0_30px_rgba(102,126,234,0.2)]' 
                           : 'bg-[#0f1115] border-slate-800'
                       }`}
                     >
@@ -261,21 +289,21 @@ export default function Home() {
                       >
                         <div className="flex items-center gap-6">
                           <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full transition-colors ${
-                            isOpen ? 'bg-blue-500 text-white' : 'bg-slate-800 text-slate-400'
+                            isOpen ? 'bg-gradient-to-br from-[#667eea] to-[#4adee4] text-white' : 'bg-slate-800 text-slate-400'
                           }`}>
                             <IconComponent className="w-6 h-6" />
                           </div>
                           <div>
                             <h3 className="text-xl font-bold md:text-2xl">{play.title}</h3>
                             <p className={`text-sm font-medium uppercase tracking-wider ${
-                              isOpen ? 'text-blue-400' : 'text-slate-500'
+                              isOpen ? 'text-[#4adee4]' : 'text-slate-500'
                             }`}>
                               {play.subtitle}
                             </p>
                           </div>
                         </div>
                         <div className={`transition-all duration-300 ${
-                          isOpen ? 'rotate-180 text-blue-500' : 'text-slate-500'
+                          isOpen ? 'rotate-180 text-[#4adee4]' : 'text-slate-500'
                         }`}>
                           <ChevronDown className="w-8 h-8" />
                         </div>
@@ -290,7 +318,7 @@ export default function Home() {
                             <ul className="mb-6 space-y-3">
                               {play.features.map((feature, idx) => (
                                 <li key={idx} className="flex items-center gap-3 text-sm text-slate-300">
-                                  <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center">
+                                  <div className="w-5 h-5 rounded-full bg-gradient-to-br from-[#667eea] to-[#4adee4] flex items-center justify-center">
                                     <div className="w-2 h-2 bg-white rounded-full"></div>
                                   </div>
                                   {feature}
@@ -318,7 +346,7 @@ export default function Home() {
           <div className="relative mx-auto max-w-7xl">
             <div className="mb-16 text-center">
               <h2 className="text-4xl font-bold uppercase tracking-tight md:text-5xl lg:text-6xl">
-                The Local <span className="text-blue-500">Advantage</span>
+                The Local <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#667eea] to-[#4adee4]">Advantage</span>
               </h2>
               <p className="mx-auto mt-4 max-w-2xl text-slate-400 text-lg">
                 Don't just be online. Be local. Our exclusive directory funnels high-intent customers straight to you.
@@ -336,16 +364,16 @@ export default function Home() {
                   />
                   
                   {/* Glowing Nodes */}
-                  <div className="absolute top-1/4 left-1/4 h-3 w-3 rounded-full bg-blue-500 shadow-[0_0_15px_#0d7ff2] pulse-dot"></div>
-                  <div className="absolute top-1/2 left-1/2 h-4 w-4 rounded-full bg-blue-500 shadow-[0_0_20px_#0d7ff2] pulse-dot" style={{animationDelay: '0.5s'}}></div>
-                  <div className="absolute bottom-1/3 right-1/4 h-3 w-3 rounded-full bg-blue-500 shadow-[0_0_15px_#0d7ff2] pulse-dot" style={{animationDelay: '1s'}}></div>
-                  <div className="absolute top-1/3 right-1/3 h-2 w-2 rounded-full bg-blue-500 shadow-[0_0_10px_#0d7ff2] pulse-dot" style={{animationDelay: '1.2s'}}></div>
+                  <div className="absolute top-1/4 left-1/4 h-3 w-3 rounded-full bg-gradient-to-br from-[#667eea] to-[#4adee4] shadow-[0_0_15px_#667eea] pulse-dot"></div>
+                  <div className="absolute top-1/2 left-1/2 h-4 w-4 rounded-full bg-gradient-to-br from-[#667eea] to-[#4adee4] shadow-[0_0_20px_#4adee4] pulse-dot" style={{animationDelay: '0.5s'}}></div>
+                  <div className="absolute bottom-1/3 right-1/4 h-3 w-3 rounded-full bg-gradient-to-br from-[#667eea] to-[#4adee4] shadow-[0_0_15px_#667eea] pulse-dot" style={{animationDelay: '1s'}}></div>
+                  <div className="absolute top-1/3 right-1/3 h-2 w-2 rounded-full bg-gradient-to-br from-[#667eea] to-[#4adee4] shadow-[0_0_10px_#4adee4] pulse-dot" style={{animationDelay: '1.2s'}}></div>
                   
                   {/* Connection Lines */}
                   <svg className="absolute inset-0 h-full w-full pointer-events-none">
-                    <line stroke="#0d7ff2" strokeOpacity="0.4" strokeWidth="1" x1="25%" y1="25%" x2="50%" y2="50%" />
-                    <line stroke="#0d7ff2" strokeOpacity="0.4" strokeWidth="1" x1="50%" y1="50%" x2="75%" y2="66%" />
-                    <line stroke="#0d7ff2" strokeOpacity="0.4" strokeWidth="1" x1="50%" y1="50%" x2="66%" y2="33%" />
+                    <line stroke="#667eea" strokeOpacity="0.4" strokeWidth="1" x1="25%" y1="25%" x2="50%" y2="50%" />
+                    <line stroke="#4adee4" strokeOpacity="0.4" strokeWidth="1" x1="50%" y1="50%" x2="75%" y2="66%" />
+                    <line stroke="#667eea" strokeOpacity="0.4" strokeWidth="1" x1="50%" y1="50%" x2="66%" y2="33%" />
                   </svg>
                 </div>
 
@@ -363,7 +391,7 @@ export default function Home() {
               {/* Feature List */}
               <div className="space-y-8">
                 <div className="flex gap-4">
-                  <div className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-500/20 text-blue-500">
+                  <div className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-[#667eea]/20 to-[#4adee4]/20 text-[#4adee4]">
                     <MapPin className="w-5 h-5" />
                   </div>
                   <div>
@@ -375,7 +403,7 @@ export default function Home() {
                 </div>
 
                 <div className="flex gap-4">
-                  <div className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-500/20 text-blue-500">
+                  <div className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-[#667eea]/20 to-[#4adee4]/20 text-[#667eea]">
                     <Users className="w-5 h-5" />
                   </div>
                   <div>
@@ -387,7 +415,7 @@ export default function Home() {
                 </div>
 
                 <div className="flex gap-4">
-                  <div className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-500/20 text-blue-500">
+                  <div className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-[#667eea]/20 to-[#4adee4]/20 text-[#4adee4]">
                     <Megaphone className="w-5 h-5" />
                   </div>
                   <div>
@@ -422,7 +450,7 @@ export default function Home() {
                 return (
                   <div key={idx} className="group relative overflow-hidden rounded-2xl bg-[#1a1d24] p-8 transition-all hover:bg-[#20242c]">
                     <div className="absolute right-0 top-0 h-24 w-24 translate-x-8 -translate-y-8 rounded-full bg-blue-500/5 blur-2xl transition-all group-hover:bg-blue-500/10"></div>
-                    <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-slate-800 text-white group-hover:bg-blue-500 group-hover:text-white transition-colors">
+                    <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-slate-800 text-white group-hover:bg-gradient-to-br group-hover:from-[#667eea] group-hover:to-[#4adee4] transition-colors">
                       <IconComponent className="w-6 h-6" />
                     </div>
                     <h3 className="mb-2 text-xl font-bold">{benefit.title}</h3>
@@ -439,8 +467,8 @@ export default function Home() {
           <div className="mx-auto max-w-7xl">
             <div className="flex flex-col md:flex-row justify-between items-center gap-6">
               <div className="flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded bg-blue-500 text-white">
-                  <Zap className="w-5 h-5" />
+                <div className="flex h-8 w-8 items-center justify-center rounded bg-gradient-to-br from-[#667eea] to-[#4adee4]">
+                  <Zap className="w-5 h-5 text-white" />
                 </div>
                 <span className="text-xl font-bold">Digital Duo Studio</span>
               </div>
@@ -461,7 +489,7 @@ export default function Home() {
 
         {/* Sticky Mobile CTA */}
         <div className="fixed bottom-0 z-40 w-full border-t border-slate-800 bg-[#0f1115]/90 p-4 backdrop-blur md:hidden">
-          <button className="w-full rounded-lg bg-blue-500 py-3 text-sm font-bold shadow-lg">
+          <button className="w-full rounded-lg bg-gradient-to-r from-[#667eea] to-[#4adee4] py-3 text-sm font-bold shadow-lg">
             Start Growing Now
           </button>
         </div>
@@ -484,7 +512,7 @@ export default function Home() {
                 <>
                   <div className="mb-8">
                     <div className="flex items-center gap-3 mb-4">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-blue-500">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-[#667eea] to-[#4adee4]">
                         <Building2 className="w-6 h-6 text-white" />
                       </div>
                       <div>
@@ -508,7 +536,7 @@ export default function Home() {
                           value={formData.businessName}
                           onChange={handleFormChange}
                           required
-                          className="w-full bg-[#0f1115] border border-slate-700 rounded-lg pl-11 pr-4 py-3 text-white placeholder-slate-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-colors"
+                          className="w-full bg-[#0f1115] border border-slate-700 rounded-lg pl-11 pr-4 py-3 text-white placeholder-slate-500 focus:border-[#4adee4] focus:outline-none focus:ring-2 focus:ring-[#4adee4]/20 transition-colors"
                           placeholder="Your Business Name"
                         />
                       </div>
@@ -527,7 +555,7 @@ export default function Home() {
                           value={formData.ownerName}
                           onChange={handleFormChange}
                           required
-                          className="w-full bg-[#0f1115] border border-slate-700 rounded-lg pl-11 pr-4 py-3 text-white placeholder-slate-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-colors"
+                          className="w-full bg-[#0f1115] border border-slate-700 rounded-lg pl-11 pr-4 py-3 text-white placeholder-slate-500 focus:border-[#4adee4] focus:outline-none focus:ring-2 focus:ring-[#4adee4]/20 transition-colors"
                           placeholder="John Smith"
                         />
                       </div>
@@ -547,7 +575,7 @@ export default function Home() {
                             value={formData.email}
                             onChange={handleFormChange}
                             required
-                            className="w-full bg-[#0f1115] border border-slate-700 rounded-lg pl-11 pr-4 py-3 text-white placeholder-slate-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-colors"
+                            className="w-full bg-[#0f1115] border border-slate-700 rounded-lg pl-11 pr-4 py-3 text-white placeholder-slate-500 focus:border-[#4adee4] focus:outline-none focus:ring-2 focus:ring-[#4adee4]/20 transition-colors"
                             placeholder="you@business.com"
                           />
                         </div>
@@ -565,7 +593,7 @@ export default function Home() {
                             value={formData.phone}
                             onChange={handleFormChange}
                             required
-                            className="w-full bg-[#0f1115] border border-slate-700 rounded-lg pl-11 pr-4 py-3 text-white placeholder-slate-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-colors"
+                            className="w-full bg-[#0f1115] border border-slate-700 rounded-lg pl-11 pr-4 py-3 text-white placeholder-slate-500 focus:border-[#4adee4] focus:outline-none focus:ring-2 focus:ring-[#4adee4]/20 transition-colors"
                             placeholder="(850) 555-0123"
                           />
                         </div>
@@ -585,7 +613,7 @@ export default function Home() {
                           value={formData.address}
                           onChange={handleFormChange}
                           required
-                          className="w-full bg-[#0f1115] border border-slate-700 rounded-lg pl-11 pr-4 py-3 text-white placeholder-slate-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-colors"
+                          className="w-full bg-[#0f1115] border border-slate-700 rounded-lg pl-11 pr-4 py-3 text-white placeholder-slate-500 focus:border-[#4adee4] focus:outline-none focus:ring-2 focus:ring-[#4adee4]/20 transition-colors"
                           placeholder="123 Main St, Pensacola, FL 32501"
                         />
                       </div>
@@ -603,7 +631,7 @@ export default function Home() {
                           value={formData.category}
                           onChange={handleFormChange}
                           required
-                          className="w-full bg-[#0f1115] border border-slate-700 rounded-lg pl-11 pr-4 py-3 text-white focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-colors appearance-none cursor-pointer"
+                          className="w-full bg-[#0f1115] border border-slate-700 rounded-lg pl-11 pr-4 py-3 text-white focus:border-[#4adee4] focus:outline-none focus:ring-2 focus:ring-[#4adee4]/20 transition-colors appearance-none cursor-pointer"
                         >
                           <option value="">Select a category</option>
                           <option value="automotive">Automotive</option>
@@ -630,7 +658,7 @@ export default function Home() {
                         onChange={handleFormChange}
                         required
                         rows={4}
-                        className="w-full bg-[#0f1115] border border-slate-700 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-colors resize-none"
+                        className="w-full bg-[#0f1115] border border-slate-700 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:border-[#4adee4] focus:outline-none focus:ring-2 focus:ring-[#4adee4]/20 transition-colors resize-none"
                         placeholder="Tell us about your business, services, and what makes you unique..."
                       />
                     </div>
@@ -639,7 +667,7 @@ export default function Home() {
                     <div className="flex gap-4 pt-4">
                       <button
                         type="submit"
-                        className="flex-1 h-12 rounded-lg bg-blue-500 text-white font-bold shadow-[0_0_20px_rgba(13,127,242,0.4)] transition-all hover:bg-blue-600 hover:scale-105 hover:shadow-[0_0_30px_rgba(13,127,242,0.6)]"
+                        className="flex-1 h-12 rounded-lg bg-gradient-to-r from-[#667eea] to-[#4adee4] text-white font-bold shadow-[0_0_20px_rgba(102,126,234,0.4)] transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(74,222,228,0.6)]"
                       >
                         Submit Application
                       </button>
