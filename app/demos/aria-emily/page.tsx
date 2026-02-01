@@ -84,17 +84,31 @@ const InventoryEstimator = () => {
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {INVENTORY_ITEMS.map(item => (
-          <button
+          <div
             key={item.id}
-            onClick={() => setCounts(prev => ({ ...prev, [item.id]: prev[item.id] + 1 }))}
-            className="group p-6 bg-white border border-slate-200 rounded-2xl hover:border-sky-500 hover:shadow-xl transition-all flex flex-col items-center gap-3"
+            className="group p-4 bg-white border border-slate-200 rounded-2xl hover:border-sky-500 hover:shadow-xl transition-all flex flex-col items-center gap-3"
           >
             <item.icon className="w-8 h-8 text-slate-400 group-hover:text-sky-500 transition-colors" />
             <div className="text-center">
               <div className="text-xs font-bold text-slate-900">{item.name}</div>
-              <div className="text-[10px] text-slate-400">{counts[item.id]} Added</div>
             </div>
-          </button>
+            
+            <div className="flex items-center gap-3 bg-slate-50 rounded-lg p-1 border border-slate-100">
+              <button 
+                onClick={() => setCounts(prev => ({ ...prev, [item.id]: Math.max(0, prev[item.id] - 1) }))}
+                className="w-6 h-6 flex items-center justify-center rounded bg-white border border-slate-200 text-slate-600 hover:bg-sky-500 hover:text-white hover:border-sky-500 transition-all text-sm font-bold"
+              >
+                -
+              </button>
+              <span className="text-xs font-black text-slate-900 min-w-[1.5ch] text-center">{counts[item.id]}</span>
+              <button 
+                onClick={() => setCounts(prev => ({ ...prev, [item.id]: prev[item.id] + 1 }))}
+                className="w-6 h-6 flex items-center justify-center rounded bg-white border border-slate-200 text-slate-600 hover:bg-sky-500 hover:text-white hover:border-sky-500 transition-all text-sm font-bold"
+              >
+                +
+              </button>
+            </div>
+          </div>
         ))}
       </div>
 
@@ -156,10 +170,27 @@ const RouteSimulator = () => {
         <div className="absolute inset-0 opacity-40 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
         
         {/* Florida Map Mockup */}
-        <svg className="absolute inset-0 w-full h-full p-8" viewBox="0 0 100 100">
-          <path d="M30,10 L50,10 L60,30 L80,50 L85,80 L70,95 L50,90 L40,70 L30,50 Z" fill="none" stroke="#CBD5E1" strokeWidth="0.5" />
+        <svg className="absolute inset-0 w-full h-full p-4" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet">
+          {/* Detailed Florida Path */}
+          <path 
+            d="M40,20 L120,20 L125,35 L135,45 L145,70 L155,110 L150,140 L140,160 L125,175 L110,180 L100,170 L95,150 L90,130 L85,100 L75,80 L65,75 L40,70 Z" 
+            fill="white" 
+            stroke="#E2E8F0" 
+            strokeWidth="1" 
+          />
+          
+          {/* Route Dots */}
           {DISPATCH_ROUTES.map(route => (
-            <circle key={route.id} cx={route.coords.x} cy={route.coords.y} r="1" fill="#38BDF8" />
+            <g key={route.id}>
+              <circle cx={route.coords.x * 1.5} cy={route.coords.y * 1.5} r="2" fill="#38BDF8" className="animate-pulse" />
+              <text 
+                x={route.coords.x * 1.5 + 4} 
+                y={route.coords.y * 1.5 + 2} 
+                className="text-[5px] font-black fill-slate-400"
+              >
+                {route.name.toUpperCase()}
+              </text>
+            </g>
           ))}
           
           {isSimulating && (
@@ -167,11 +198,12 @@ const RouteSimulator = () => {
               initial={{ pathLength: 0 }}
               animate={{ pathLength: 1 }}
               transition={{ duration: 2, ease: "easeInOut" }}
-              d="M35,70 Q55,80 75,90"
+              d="M50,40 Q100,100 130,150"
               fill="none"
               stroke="#38BDF8"
-              strokeWidth="2"
-              strokeDasharray="4 2"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeDasharray="8 4"
             />
           )}
         </svg>
