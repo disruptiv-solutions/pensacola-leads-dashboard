@@ -4,6 +4,14 @@ import Link from "next/link";
 
 const businesses = [
   {
+    id: "florida-blacktop-paving",
+    name: "Florida Blacktop Paving",
+    type: "Commercial Asphalt",
+    priority: "High",
+    description: "Commercial asphalt command center with project calculators and fresh hot-mix guarantee.",
+    image: "https://images.unsplash.com/photo-1621905251918-48416bd8575a?auto=format&fit=crop&q=80&w=1000"
+  },
+  {
     id: "aa-mobile-detailing",
     name: "AA Mobile Detailing",
     type: "Automotive Care",
