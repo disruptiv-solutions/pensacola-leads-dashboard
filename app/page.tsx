@@ -1,950 +1,487 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { 
+  Phone, 
+  Wrench, 
   Rocket, 
-  Zap, 
-  TrendingUp, 
   Check, 
-  ArrowRight, 
-  Calendar,
-  ChevronDown,
-  Activity,
-  DollarSign,
-  Clock,
-  Shield,
-  Target,
-  Users
+  Map, 
+  Eye, 
+  TrendingUp,
+  Store,
+  Star,
+  ArrowLeft,
+  ArrowRight,
+  Menu,
+  Zap,
+  RefreshCw,
+  Storefront,
+  ChevronRight
 } from "lucide-react";
 
-const PACKAGES = [
+const OFFERS = [
   {
     id: "launch-site",
     icon: Rocket,
-    name: "Launch Site",
-    tagline: "One-page powerhouse. Live in 5 days.",
-    priceFlat: 1497,
-    priceMonthly: 149,
-    timeline: "Delivered in 5 days",
+    name: "The Launch Site",
+    badge: "Best Value",
+    badgeColor: "bg-blue-100 dark:bg-blue-900 text-primary",
+    price: 997,
+    period: "one-time",
+    description: "Perfect for new businesses needing a professional presence fast.",
     features: [
-      "Custom design",
-      "Mobile-optimized",
-      "Contact form + automation",
-      "Free directory listing",
-      "30-day support"
-    ]
+      "High-converting one-pager",
+      "Mobile optimized & Fast",
+      "Basic SEO Foundation",
+      "5-Day Delivery"
+    ],
+    buttonText: "Get Started",
+    buttonStyle: "bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-900 dark:text-white",
+    featured: false
   },
   {
     id: "local-automations",
-    icon: Zap,
-    name: "Local Automations Starter",
-    tagline: "Review requests, lead capture, CRM sync.",
-    priceFlat: 997,
-    priceMonthly: 97,
-    timeline: "Setup in 3 days",
+    icon: RefreshCw,
+    name: "Local Automations",
+    badge: "Popular",
+    badgeColor: "bg-primary text-white",
+    price: 297,
+    period: "/mo",
+    description: "Automate your reputation and customer management.",
     features: [
-      "Automated review requests",
-      "Contact form flows",
-      "CRM integration",
-      "Monthly monitoring",
-      "Free directory boost"
-    ]
+      "Auto-review requests (SMS/Email)",
+      "Unified Inbox & CRM",
+      "Missed Call Text Back",
+      "Lead Capture Forms"
+    ],
+    buttonText: "Start Free Trial",
+    buttonStyle: "bg-primary hover:bg-blue-600 text-white shadow-lg shadow-blue-500/25",
+    featured: true
   },
   {
     id: "directory-boost",
-    icon: TrendingUp,
+    icon: Storefront,
     name: "Directory Boost",
-    tagline: "Featured listing + monthly promo post.",
-    priceFlat: null,
-    priceMonthly: 297,
-    timeline: "Live immediately",
+    badge: "Add-on",
+    badgeColor: "bg-blue-100 dark:bg-blue-900 text-primary",
+    price: 97,
+    period: "/mo",
+    description: "Get found by locals on our exclusive community directory.",
     features: [
-      "Enhanced directory profile",
-      "Monthly feature post",
-      "Social media share",
-      "Priority placement",
-      "Analytics dashboard"
-    ]
+      "Premium Directory Listing",
+      "Featured Homepage Placement",
+      "High-Authority Local Backlink",
+      "Monthly Traffic Report"
+    ],
+    buttonText: "Join Directory",
+    buttonStyle: "bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-900 dark:text-white",
+    featured: false
   }
 ];
 
-const PHASES = [
+const TESTIMONIALS = [
   {
-    number: 1,
-    title: "MVP & First 10–20 Clients",
-    description: "We're building the engine. Join the founding cohort.",
-    status: "completed"
+    name: "Michael R.",
+    role: "Owner, Bayview Coffee",
+    rating: 5,
+    text: "The speed was incredible. We went from no website to a fully functional site and 5 new google reviews in less than a week. Highly recommend for any local shop.",
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=100"
   },
   {
-    number: 2,
-    title: "Productized Offers",
-    description: "Lock in your package. No custom chaos.",
-    status: "current"
+    name: "Sarah Jenkins",
+    role: "Director, Coastal Realty",
+    rating: 5,
+    text: "The Local Automations package changed how we handle leads. I don't miss calls anymore because the system texts them back instantly. It's paid for itself ten times over.",
+    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=100"
   },
   {
-    number: 3,
-    title: "Recurring Revenue",
-    description: "Maintenance, monitoring, monthly promos.",
-    status: "upcoming"
-  },
-  {
-    number: 4,
-    title: "Directory as Asset",
-    description: "Your business, always visible. Always growing.",
-    status: "upcoming"
-  },
-  {
-    number: 5,
-    title: "Regional Expansion",
-    description: "Gulf Breeze. Ft. Walton. Beyond.",
-    status: "upcoming"
+    name: "David Chen",
+    role: "Manager, TechFix Pensacola",
+    rating: 5,
+    text: "Being part of the directory gave us an immediate boost in local SEO. We're finally showing up on the first page for our keywords. The team is professional and responsive.",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=100"
   }
 ];
-
-const DIRECTORY_PREVIEW = [
-  { name: "AA Mobile Detailing", category: "Automotive", image: "https://images.unsplash.com/photo-1601362840469-51e4d8d58785?auto=format&fit=crop&q=80&w=400" },
-  { name: "Sweet Sarah Desserts", category: "Bakery", image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&q=80&w=400" },
-  { name: "Carden Outdoor Escapes", category: "Landscaping", image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=400" },
-  { name: "Guy Brothers Roofing", category: "Roofing", image: "https://images.unsplash.com/photo-1631545866282-299942475527?auto=format&fit=crop&q=80&w=400" },
-  { name: "All About Boba Café", category: "Food & Beverage", image: "https://images.unsplash.com/photo-1525385133512-2f3bdd039054?auto=format&fit=crop&q=80&w=400" },
-  { name: "New Horizon Concrete", category: "Construction", image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=400" }
-];
-
-const FAQS = [
-  {
-    question: "What if I need something custom?",
-    answer: "We can discuss custom work, but our productized packages cover 90% of what local businesses need. If you need something unique, we'll quote it separately—but we always recommend starting with a package to get live fast."
-  },
-  {
-    question: "Can I upgrade later?",
-    answer: "Absolutely. Many clients start with Launch Site and add Local Automations or Directory Boost later. We make it seamless."
-  },
-  {
-    question: "What's included in the directory listing?",
-    answer: "Every package includes a free basic directory listing (business name, category, description, contact info). Directory Boost upgrades you to featured placement with monthly promo posts."
-  },
-  {
-    question: "Do you offer payment plans?",
-    answer: "Yes. For flat-fee packages, we offer 50% upfront, 50% at launch. Monthly packages are billed monthly with no long-term contract."
-  },
-  {
-    question: "What happens after launch?",
-    answer: "You get 30 days of support included. After that, you can add a maintenance retainer ($50–300/month) for ongoing updates, hosting, and monitoring."
-  }
-];
-
-const LiveProjectTracker = () => {
-  const [activeProjects, setActiveProjects] = useState(12);
-  const [launchingThisWeek, setLaunchingThisWeek] = useState(3);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveProjects(prev => (prev === 12 ? 13 : 12));
-      setLaunchingThisWeek(prev => (prev === 3 ? 4 : 3));
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, x: 20 }}
-      animate={{ opacity: 1, x: 0 }}
-      className="fixed top-6 right-6 z-50 bg-slate-900/95 backdrop-blur-sm border border-blue-500/30 px-4 py-3 shadow-2xl"
-    >
-      <div className="flex items-center gap-3 text-xs font-black uppercase tracking-wider">
-        <div className="flex items-center gap-2">
-          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-          <span className="text-white">Active: {activeProjects}</span>
-        </div>
-        <div className="w-px h-4 bg-white/20" />
-        <div className="flex items-center gap-2">
-          <Rocket className="w-3 h-3 text-blue-400" />
-          <span className="text-blue-400">Launching: {launchingThisWeek}</span>
-        </div>
-      </div>
-    </motion.div>
-  );
-};
-
-const PhaseIndicatorBadge = () => {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 py-2 px-4 text-center"
-    >
-      <div className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-white">
-        <span className="text-yellow-300">🔥</span>
-        <span>Phase 2 Active: Productized Offers Now Live</span>
-      </div>
-    </motion.div>
-  );
-};
-
-const IncomeGoalSimulator = () => {
-  const [monthlyGoal, setMonthlyGoal] = useState(2000);
-  const [timeframe, setTimeframe] = useState(3);
-
-  const launchSites = Math.ceil(monthlyGoal / 149);
-  const retainers = Math.ceil(monthlyGoal / 97);
-  const mixed = Math.ceil(monthlyGoal / 200);
-
-  return (
-    <div className="bg-slate-800/50 border border-blue-500/30 p-8 space-y-6">
-      <div className="flex items-center gap-3 mb-4">
-        <Target className="w-6 h-6 text-blue-400" />
-        <h3 className="text-2xl font-black uppercase tracking-tight">Income Goal Simulator</h3>
-      </div>
-
-      <div className="space-y-4">
-        <div>
-          <label className="block text-sm font-bold uppercase tracking-wider text-slate-400 mb-2">
-            Monthly Goal ($)
-          </label>
-          <input
-            type="number"
-            value={monthlyGoal}
-            onChange={(e) => setMonthlyGoal(Number(e.target.value))}
-            className="w-full bg-slate-900 border border-slate-700 px-4 py-3 text-white font-bold text-lg focus:border-blue-500 focus:outline-none"
-            step="500"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-bold uppercase tracking-wider text-slate-400 mb-2">
-            Timeframe (months)
-          </label>
-          <input
-            type="number"
-            value={timeframe}
-            onChange={(e) => setTimeframe(Number(e.target.value))}
-            className="w-full bg-slate-900 border border-slate-700 px-4 py-3 text-white font-bold text-lg focus:border-blue-500 focus:outline-none"
-            step="1"
-            min="1"
-          />
-        </div>
-      </div>
-
-      <div className="border-t border-slate-700 pt-6 space-y-3">
-        <div className="text-sm font-bold uppercase tracking-wider text-slate-400 mb-3">
-          You'll Need:
-        </div>
-        <div className="space-y-2 text-sm">
-          <div className="flex justify-between items-center">
-            <span className="text-slate-300">Launch Sites (monthly):</span>
-            <span className="text-blue-400 font-black text-lg">{launchSites}</span>
-          </div>
-          <div className="flex justify-between items-center">
-            <span className="text-slate-300">OR Automation Retainers:</span>
-            <span className="text-cyan-400 font-black text-lg">{retainers}</span>
-          </div>
-          <div className="flex justify-between items-center">
-            <span className="text-slate-300">OR Mixed Clients:</span>
-            <span className="text-green-400 font-black text-lg">{mixed}</span>
-          </div>
-        </div>
-      </div>
-
-      <button className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-black uppercase tracking-wider py-4 transition-all duration-300 flex items-center justify-center gap-2">
-        <span>Let's Build Your Plan</span>
-        <ArrowRight className="w-4 h-4" />
-      </button>
-    </div>
-  );
-};
-
-const RetainerVisualizer = () => {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
-  const tiers = [
-    { clients: 1, revenue: 150 },
-    { clients: 5, revenue: 750 },
-    { clients: 10, revenue: 1500 },
-    { clients: 20, revenue: 3000 }
-  ];
-
-  return (
-    <div className="space-y-6">
-      <div className="flex items-center gap-3">
-        <DollarSign className="w-6 h-6 text-green-400" />
-        <h3 className="text-2xl font-black uppercase tracking-tight">Stack Your Retainers</h3>
-      </div>
-
-      <div className="space-y-4">
-        {tiers.map((tier, idx) => (
-          <motion.div
-            key={idx}
-            onHoverStart={() => setHoveredIndex(idx)}
-            onHoverEnd={() => setHoveredIndex(null)}
-            className="relative"
-          >
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-bold text-slate-400 uppercase tracking-wider">
-                {tier.clients} Client{tier.clients > 1 ? 's' : ''}
-              </span>
-              <span className="text-lg font-black text-green-400">
-                ${tier.revenue.toLocaleString()}/mo
-              </span>
-            </div>
-            <div className="relative h-8 bg-slate-800 overflow-hidden">
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ 
-                  width: hoveredIndex === idx ? '100%' : `${(tier.revenue / 3000) * 100}%` 
-                }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-                className="absolute inset-y-0 left-0 bg-gradient-to-r from-green-500 to-emerald-500"
-              />
-            </div>
-          </motion.div>
-        ))}
-      </div>
-
-      <p className="text-xs text-slate-500 italic">
-        Average retainer: $150/month. Hover to see full potential.
-      </p>
-    </div>
-  );
-};
 
 export default function Home() {
-  const [selectedPackages, setSelectedPackages] = useState<string[]>([]);
-  const [paymentMode, setPaymentMode] = useState<"flat" | "monthly">("monthly");
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
-
-  const togglePackage = (id: string) => {
-    setSelectedPackages(prev =>
-      prev.includes(id) ? prev.filter(p => p !== id) : [...prev, id]
-    );
-  };
-
-  const calculateTotal = () => {
-    let setupTotal = 0;
-    let monthlyTotal = 0;
-
-    selectedPackages.forEach(id => {
-      const pkg = PACKAGES.find(p => p.id === id);
-      if (pkg) {
-        if (paymentMode === "flat" && pkg.priceFlat) {
-          setupTotal += pkg.priceFlat;
-        } else if (pkg.priceMonthly) {
-          monthlyTotal += pkg.priceMonthly;
-        }
-      }
-    });
-
-    return { setupTotal, monthlyTotal };
-  };
-
-  const { setupTotal, monthlyTotal } = calculateTotal();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <main className="min-h-screen bg-slate-950 text-white">
-      <PhaseIndicatorBadge />
-      <LiveProjectTracker />
-
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center px-6 pt-20 pb-32 overflow-hidden">
-        {/* Background Effects */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-950/30 via-slate-950 to-cyan-950/30" />
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03]" />
-        
-        {/* Animated Grid */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: 'linear-gradient(#3B82F6 1px, transparent 1px), linear-gradient(90deg, #3B82F6 1px, transparent 1px)',
-            backgroundSize: '50px 50px'
-          }} />
-        </div>
-
-        <div className="relative max-w-7xl mx-auto text-center space-y-12 z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="space-y-6"
-          >
-            <div className="inline-flex items-center gap-2 px-6 py-3 bg-blue-500/20 border border-blue-500/30 text-sm font-black uppercase tracking-widest">
-              <Activity className="w-4 h-4" />
-              Digital Duo Studio
+    <div className="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white overflow-x-hidden">
+      {/* Top Navigation */}
+      <header className="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur">
+        <div className="px-4 md:px-10 py-3 flex items-center justify-between max-w-7xl mx-auto">
+          <div className="flex items-center gap-4">
+            <div className="w-8 h-8 text-blue-500">
+              <Zap className="w-8 h-8" />
             </div>
-
-            <h1 className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-none uppercase">
-              Pensacola's<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400">
-                Productized
-              </span><br />
-              Web Studio
-            </h1>
-
-            <p className="max-w-4xl mx-auto text-xl md:text-2xl text-slate-300 font-bold leading-relaxed">
-              Fixed prices. Fast delivery. Recurring results.<br />
-              <span className="text-slate-500">No scope creep, no surprises.</span>
-            </p>
-
-            {/* Live Stats Dashboard */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="inline-flex items-center gap-8 px-8 py-4 bg-slate-900/50 backdrop-blur-sm border border-slate-800"
-            >
-              <div className="text-center">
-                <div className="text-3xl font-black text-blue-400">12</div>
-                <div className="text-xs font-bold uppercase tracking-wider text-slate-500">Live Projects</div>
-              </div>
-              <div className="w-px h-10 bg-slate-700" />
-              <div className="text-center">
-                <div className="text-3xl font-black text-cyan-400">8</div>
-                <div className="text-xs font-bold uppercase tracking-wider text-slate-500">Active Retainers</div>
-              </div>
-              <div className="w-px h-10 bg-slate-700" />
-              <div className="text-center">
-                <div className="text-3xl font-black text-green-400">47</div>
-                <div className="text-xs font-bold uppercase tracking-wider text-slate-500">Directory Listings</div>
-              </div>
-            </motion.div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-6"
-          >
-            <a
-              href="#packages"
-              className="group px-10 py-5 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-black uppercase tracking-widest transition-all duration-300 flex items-center gap-3 text-lg"
-            >
-              <span>View Packages</span>
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </a>
-
-            <Link
-              href="/demo-pages"
-              className="px-10 py-5 border-2 border-slate-700 hover:border-blue-500 text-white font-black uppercase tracking-widest transition-all duration-300 text-lg"
-            >
-              Browse Directory
-            </Link>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="pt-8"
-          >
-            <div className="inline-flex items-center gap-2 text-sm font-bold text-slate-500 uppercase tracking-wider">
-              <Shield className="w-4 h-4" />
-              <span>Serving Pensacola, Gulf Breeze & Beyond</span>
+            <h2 className="text-lg font-bold leading-tight tracking-tight">Digital Duo Studio</h2>
+          </div>
+          
+          <div className="hidden md:flex flex-1 justify-end gap-8 items-center">
+            <div className="flex items-center gap-6 lg:gap-9">
+              <a className="text-sm font-medium hover:text-blue-500 transition-colors" href="#offers">Offers</a>
+              <a className="text-sm font-medium hover:text-blue-500 transition-colors" href="#directory">Directory</a>
+              <a className="text-sm font-medium hover:text-blue-500 transition-colors" href="#process">Process</a>
+              <a className="text-sm font-medium hover:text-blue-500 transition-colors" href="#testimonials">Testimonials</a>
             </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Problem/Solution Bar */}
-      <section className="bg-gradient-to-r from-blue-600 to-cyan-600 py-6 px-6">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
-          <div className="text-lg font-black uppercase tracking-tight">
-            Tired of custom quotes that balloon into 6-month projects?
+            <button className="flex items-center justify-center rounded-lg h-10 px-6 bg-blue-500 hover:bg-blue-600 text-white text-sm font-bold transition-colors">
+              Contact Us
+            </button>
           </div>
-          <div className="hidden md:block w-px h-12 bg-white/30" />
-          <div className="text-lg font-black uppercase tracking-tight">
-            We run plays, not experiments. Pick a package. Launch in days.
-          </div>
+          
+          <button className="md:hidden p-2" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+            <Menu className="w-6 h-6" />
+          </button>
         </div>
-      </section>
+      </header>
 
-      {/* Productized Offers Grid */}
-      <section id="packages" className="py-32 px-6 bg-slate-950">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center space-y-4 mb-20">
-            <h2 className="text-5xl md:text-7xl font-black tracking-tighter uppercase">
-              Choose Your Package
-            </h2>
-            <p className="text-xl text-slate-400 font-bold">
-              Clear scope. Clear price. Clear timeline.
+      <main className="flex flex-col w-full">
+        {/* Hero Section */}
+        <section className="relative px-4 py-12 md:py-20 lg:py-24 bg-white dark:bg-slate-900">
+          <div className="max-w-7xl mx-auto flex flex-col-reverse lg:flex-row gap-10 lg:gap-16 items-center">
+            <div className="flex flex-col gap-6 lg:w-1/2 text-center lg:text-left">
+              <div className="flex flex-col gap-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-500 text-xs font-bold uppercase tracking-wider w-fit mx-auto lg:mx-0">
+                  <Zap className="w-4 h-4" />
+                  Pensacola's Fastest Agency
+                </div>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.1] tracking-tight">
+                  Modern Web & <span className="text-blue-500">Automations</span> for Pensacola Businesses
+                </h1>
+                <p className="text-slate-600 dark:text-slate-400 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                  Launch your site in days, not months. Automate your growth and dominate the local market with our streamlined digital solutions.
+                </p>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <a href="#offers" className="flex items-center justify-center rounded-lg h-12 px-8 bg-blue-500 hover:bg-blue-600 text-white text-base font-bold shadow-lg shadow-blue-500/20 transition-all transform hover:-translate-y-0.5">
+                  View Our Offers
+                </a>
+                <a href="#process" className="flex items-center justify-center rounded-lg h-12 px-8 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-base font-bold transition-colors">
+                  How It Works
+                </a>
+              </div>
+            </div>
+            <div className="w-full lg:w-1/2 aspect-video lg:aspect-square max-h-[500px] rounded-2xl overflow-hidden shadow-2xl relative group">
+              <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/20 to-transparent mix-blend-overlay z-10"></div>
+              <img 
+                src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1000"
+                alt="Modern office workspace"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Offers Header */}
+        <section className="px-4 py-8 bg-slate-50 dark:bg-slate-950" id="offers">
+          <div className="max-w-7xl mx-auto text-center">
+            <h2 className="text-3xl font-bold leading-tight tracking-tight">Our Core Offers</h2>
+            <p className="mt-4 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+              Simple, transparent pricing for productized services that get results.
             </p>
           </div>
+        </section>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {PACKAGES.map((pkg, idx) => {
-              const IconComponent = pkg.icon;
-              return (
-                <motion.div
-                  key={pkg.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  viewport={{ once: true }}
-                  className="group relative bg-slate-900/50 border border-slate-800 hover:border-blue-500/50 p-8 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/10"
-                >
-                  <div className="space-y-6">
-                    <IconComponent className="w-12 h-12 text-blue-400" />
+        {/* Pricing Cards */}
+        <section className="px-4 pb-20 pt-8 bg-slate-50 dark:bg-slate-950">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {OFFERS.map((offer, idx) => {
+                const IconComponent = offer.icon;
+                return (
+                  <div
+                    key={offer.id}
+                    className={`flex flex-col gap-4 rounded-xl bg-white dark:bg-slate-800 p-8 shadow-sm hover:shadow-xl transition-all duration-300 relative overflow-hidden group ${
+                      offer.featured ? 'border-2 border-blue-500 lg:-translate-y-4' : 'border border-slate-200 dark:border-slate-700'
+                    }`}
+                  >
+                    <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                      <IconComponent className="w-20 h-20 text-blue-500" />
+                    </div>
                     
-                    <div>
-                      <h3 className="text-3xl font-black uppercase tracking-tight mb-2">
-                        {pkg.name}
-                      </h3>
-                      <p className="text-slate-400 font-bold">
-                        {pkg.tagline}
+                    <div className="flex flex-col gap-1 z-10">
+                      <div className="flex items-center justify-between">
+                        <h3 className={`text-lg font-bold ${offer.featured ? 'text-blue-500' : ''}`}>
+                          {offer.name}
+                        </h3>
+                        <span className={`${offer.badgeColor} text-xs font-bold px-3 py-1 rounded-full`}>
+                          {offer.badge}
+                        </span>
+                      </div>
+                      <div className="flex items-baseline gap-1 mt-2">
+                        <span className="text-4xl font-black tracking-tight">
+                          ${offer.price}
+                        </span>
+                        <span className="text-slate-500 font-bold">{offer.period}</span>
+                      </div>
+                      <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
+                        {offer.description}
                       </p>
                     </div>
 
-                    <div className="border-t border-slate-800 pt-6">
-                      {pkg.priceFlat && (
-                        <div className="mb-2">
-                          <span className="text-4xl font-black text-white">
-                            ${pkg.priceFlat.toLocaleString()}
-                          </span>
-                          <span className="text-slate-500 font-bold ml-2">flat</span>
+                    <hr className="border-slate-100 dark:border-slate-700 my-2" />
+
+                    <div className="flex flex-col gap-3 flex-1 z-10">
+                      {offer.features.map((feature, i) => (
+                        <div key={i} className="flex gap-3 text-sm text-slate-700 dark:text-slate-300">
+                          <Check className="w-5 h-5 text-blue-500 shrink-0" />
+                          {feature}
                         </div>
-                      )}
-                      <div>
-                        <span className="text-4xl font-black text-cyan-400">
-                          ${pkg.priceMonthly}
-                        </span>
-                        <span className="text-slate-500 font-bold">/month</span>
-                      </div>
-                      <div className="mt-3 flex items-center gap-2 text-sm text-slate-500">
-                        <Clock className="w-4 h-4" />
-                        <span className="font-bold">{pkg.timeline}</span>
-                      </div>
+                      ))}
                     </div>
 
-                    <ul className="space-y-3">
-                      {pkg.features.map((feature, i) => (
-                        <li key={i} className="flex items-start gap-3">
-                          <Check className="w-5 h-5 text-green-400 shrink-0 mt-0.5" />
-                          <span className="text-slate-300 font-bold">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-
-                    <button className="w-full bg-blue-500 hover:bg-blue-600 text-white font-black uppercase tracking-wider py-4 transition-all duration-300 flex items-center justify-center gap-2">
-                      <span>Get Started</span>
-                      <ArrowRight className="w-4 h-4" />
+                    <button className={`mt-6 w-full py-3 rounded-lg font-bold transition-colors z-10 ${offer.buttonStyle}`}>
+                      {offer.buttonText}
                     </button>
                   </div>
-                </motion.div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* The 5-Phase Roadmap */}
-      <section className="py-32 px-6 bg-slate-900/50">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center space-y-4 mb-20">
-            <h2 className="text-5xl md:text-7xl font-black tracking-tighter uppercase">
-              The Roadmap
-            </h2>
-            <p className="text-xl text-slate-400 font-bold">
-              Five phases. One mission: Scale smart.
-            </p>
-          </div>
-
-          <div className="space-y-6">
-            {PHASES.map((phase, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                viewport={{ once: true }}
-                className={`relative flex items-start gap-6 p-8 border-l-4 ${
-                  phase.status === 'current'
-                    ? 'border-blue-500 bg-blue-500/10'
-                    : phase.status === 'completed'
-                    ? 'border-green-500 bg-green-500/5'
-                    : 'border-slate-700 bg-slate-900/30'
-                }`}
-              >
-                <div className={`shrink-0 w-16 h-16 flex items-center justify-center font-black text-2xl ${
-                  phase.status === 'current'
-                    ? 'bg-blue-500 text-white'
-                    : phase.status === 'completed'
-                    ? 'bg-green-500 text-white'
-                    : 'bg-slate-800 text-slate-500'
-                }`}>
-                  {phase.number}
+        {/* Directory Feature Section */}
+        <section className="px-4 py-16 md:py-24 bg-white dark:bg-slate-900 overflow-hidden" id="directory">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center">
+              <div className="flex flex-col gap-8 lg:w-1/2">
+                <div className="flex flex-col gap-4">
+                  <div className="flex items-center gap-2 text-blue-500 font-bold">
+                    <Map className="w-5 h-5" />
+                    <span>Local Growth Engine</span>
+                  </div>
+                  <h2 className="text-3xl md:text-4xl font-black leading-tight">
+                    The Pensacola Directory Integration
+                  </h2>
+                  <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+                    More than just a website. Gain immediate visibility through our exclusive Pensacola Community Directory. We drive local traffic directly to your new digital storefront from day one.
+                  </p>
                 </div>
                 
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-2">
-                    <h3 className="text-2xl font-black uppercase tracking-tight">
-                      {phase.title}
-                    </h3>
-                    {phase.status === 'current' && (
-                      <span className="px-3 py-1 bg-blue-500 text-white text-xs font-black uppercase tracking-wider">
-                        Current Phase
-                      </span>
-                    )}
-                    {phase.status === 'completed' && (
-                      <Check className="w-6 h-6 text-green-400" />
-                    )}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div className="flex flex-col gap-2 p-4 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+                    <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-500 mb-2">
+                      <Eye className="w-5 h-5" />
+                    </div>
+                    <h4 className="font-bold">Immediate Visibility</h4>
+                    <p className="text-sm text-slate-600 dark:text-slate-400">
+                      Get in front of local customers instantly through our established network.
+                    </p>
                   </div>
-                  <p className="text-slate-400 font-bold text-lg">
-                    {phase.description}
-                  </p>
+                  <div className="flex flex-col gap-2 p-4 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+                    <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-500 mb-2">
+                      <TrendingUp className="w-5 h-5" />
+                    </div>
+                    <h4 className="font-bold">Local SEO Boost</h4>
+                    <p className="text-sm text-slate-600 dark:text-slate-400">
+                      Enhance your rankings with a high-quality backlink from a trusted local hub.
+                    </p>
+                  </div>
                 </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Why Productized? */}
-      <section className="py-32 px-6 bg-slate-950">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center space-y-4 mb-20">
-            <h2 className="text-5xl md:text-7xl font-black tracking-tighter uppercase">
-              Why Productized?
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: Shield,
-                title: "No Scope Creep",
-                description: "Fixed scope. Fixed price. Fixed timeline. You know exactly what you're getting."
-              },
-              {
-                icon: Zap,
-                title: "Faster Delivery",
-                description: "We've run this play 20+ times. You get the refined version, not the experiment."
-              },
-              {
-                icon: TrendingUp,
-                title: "Stacked Retainers",
-                description: "Every project can become $50–300/month in recurring revenue for you."
-              }
-            ].map((benefit, idx) => {
-              const IconComponent = benefit.icon;
-              return (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  viewport={{ once: true }}
-                  className="text-center space-y-4"
+                <Link
+                  href="/demo-pages"
+                  className="w-fit flex items-center justify-center rounded-lg h-12 px-8 bg-blue-500 hover:bg-blue-600 text-white font-bold transition-colors"
                 >
-                  <div className="inline-flex items-center justify-center w-20 h-20 bg-blue-500/10 border border-blue-500/30">
-                    <IconComponent className="w-10 h-10 text-blue-400" />
-                  </div>
-                  <h3 className="text-2xl font-black uppercase tracking-tight">
-                    {benefit.title}
-                  </h3>
-                  <p className="text-slate-400 font-bold leading-relaxed">
-                    {benefit.description}
-                  </p>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Directory Preview */}
-      <section className="py-32 px-6 bg-slate-900/50">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center space-y-4 mb-12">
-            <h2 className="text-5xl md:text-7xl font-black tracking-tighter uppercase">
-              Meet the Directory
-            </h2>
-            <p className="text-xl text-slate-400 font-bold">
-              Free basic listing with any package. Paid upgrades available.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-12">
-            {DIRECTORY_PREVIEW.map((business, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3, delay: idx * 0.05 }}
-                viewport={{ once: true }}
-                className="group relative aspect-square overflow-hidden border border-slate-800 hover:border-blue-500 transition-all duration-300"
-              >
-                <img
-                  src={business.image}
-                  alt={business.name}
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-                  <div className="text-xs font-black uppercase tracking-wider text-blue-400 mb-1">
-                    {business.category}
-                  </div>
-                  <div className="text-sm font-black">
-                    {business.name}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          <div className="text-center">
-            <Link
-              href="/demo-pages"
-              className="inline-flex items-center gap-3 px-8 py-4 border-2 border-blue-500 hover:bg-blue-500 text-white font-black uppercase tracking-widest transition-all duration-300"
-            >
-              <span>Explore Full Directory</span>
-              <ArrowRight className="w-5 h-5" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing Calculator & Tools */}
-      <section className="py-32 px-6 bg-slate-950">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center space-y-4 mb-20">
-            <h2 className="text-5xl md:text-7xl font-black tracking-tighter uppercase">
-              Plan Your Growth
-            </h2>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-12">
-            {/* Pricing Calculator */}
-            <div className="bg-slate-900/50 border border-slate-800 p-8 space-y-6">
-              <div className="flex items-center gap-3 mb-6">
-                <DollarSign className="w-6 h-6 text-green-400" />
-                <h3 className="text-2xl font-black uppercase tracking-tight">Pricing Calculator</h3>
+                  Explore The Directory
+                </Link>
               </div>
 
-              <div className="space-y-4">
-                <div className="flex items-center gap-4 mb-4">
-                  <button
-                    onClick={() => setPaymentMode('monthly')}
-                    className={`flex-1 py-3 font-black uppercase tracking-wider transition-all ${
-                      paymentMode === 'monthly'
-                        ? 'bg-blue-500 text-white'
-                        : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
-                    }`}
-                  >
-                    Monthly
-                  </button>
-                  <button
-                    onClick={() => setPaymentMode('flat')}
-                    className={`flex-1 py-3 font-black uppercase tracking-wider transition-all ${
-                      paymentMode === 'flat'
-                        ? 'bg-blue-500 text-white'
-                        : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
-                    }`}
-                  >
-                    One-Time
-                  </button>
-                </div>
-
-                {PACKAGES.map(pkg => (
-                  <label
-                    key={pkg.id}
-                    className="flex items-center gap-4 p-4 bg-slate-800/50 border border-slate-700 hover:border-blue-500/50 cursor-pointer transition-all"
-                  >
-                    <input
-                      type="checkbox"
-                      checked={selectedPackages.includes(pkg.id)}
-                      onChange={() => togglePackage(pkg.id)}
-                      className="w-5 h-5"
+              <div className="lg:w-1/2 relative">
+                <div className="absolute -top-10 -right-10 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl"></div>
+                <div className="absolute -bottom-10 -left-10 w-64 h-64 bg-blue-400/10 rounded-full blur-3xl"></div>
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white dark:border-slate-800">
+                  <div className="w-full aspect-square bg-cover bg-center">
+                    <img 
+                      src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=800"
+                      alt="Map of Pensacola"
+                      className="w-full h-full object-cover"
                     />
-                    <div className="flex-1">
-                      <div className="font-black uppercase tracking-tight">{pkg.name}</div>
-                      <div className="text-sm text-slate-500 font-bold">
-                        {paymentMode === 'flat' && pkg.priceFlat
-                          ? `$${pkg.priceFlat.toLocaleString()} flat`
-                          : `$${pkg.priceMonthly}/month`}
+                  </div>
+                  
+                  <div className="absolute bottom-6 left-6 right-6 bg-white dark:bg-slate-900 p-4 rounded-xl shadow-lg border border-slate-100 dark:border-slate-700 flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-lg bg-blue-500 flex items-center justify-center text-white shrink-0">
+                      <Store className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <p className="text-xs text-slate-500 uppercase font-bold">New Listing</p>
+                      <p className="font-bold">Your Business Name</p>
+                      <div className="flex text-yellow-400">
+                        {[...Array(5)].map((_, i) => (
+                          <Star key={i} className="w-3 h-3 fill-current" />
+                        ))}
                       </div>
                     </div>
-                  </label>
-                ))}
-              </div>
-
-              <div className="border-t border-slate-700 pt-6 space-y-3">
-                <div className="flex justify-between items-center text-lg">
-                  <span className="font-bold text-slate-400">Your Investment:</span>
-                  <div className="text-right">
-                    {setupTotal > 0 && (
-                      <div className="text-2xl font-black text-white">
-                        ${setupTotal.toLocaleString()} setup
-                      </div>
-                    )}
-                    {monthlyTotal > 0 && (
-                      <div className="text-2xl font-black text-cyan-400">
-                        ${monthlyTotal}/month
-                      </div>
-                    )}
-                    {setupTotal === 0 && monthlyTotal === 0 && (
-                      <div className="text-2xl font-black text-slate-600">
-                        Select packages
-                      </div>
-                    )}
+                    <div className="ml-auto">
+                      <Check className="w-6 h-6 text-green-500" />
+                    </div>
                   </div>
                 </div>
               </div>
-
-              <button className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-black uppercase tracking-wider py-4 transition-all duration-300 flex items-center justify-center gap-2">
-                <span>Lock This In</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
-
-            {/* Income Goal Simulator */}
-            <div className="space-y-8">
-              <IncomeGoalSimulator />
-              <RetainerVisualizer />
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Social Proof */}
-      <section className="py-20 px-6 bg-slate-900/50 border-y border-slate-800">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div>
-              <div className="text-5xl font-black text-blue-400 mb-2">12</div>
-              <div className="text-sm font-bold uppercase tracking-wider text-slate-500">Sites Launched</div>
+        {/* Process Section */}
+        <section className="px-4 py-16 md:py-24 bg-slate-50 dark:bg-slate-950" id="process">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl font-bold">The 3-Step Playbook</h2>
+              <p className="mt-4 text-slate-600 dark:text-slate-400">
+                Our standardized delivery process ensures quality and speed.
+              </p>
             </div>
-            <div>
-              <div className="text-5xl font-black text-cyan-400 mb-2">8</div>
-              <div className="text-sm font-bold uppercase tracking-wider text-slate-500">Active Retainers</div>
-            </div>
-            <div>
-              <div className="text-5xl font-black text-green-400 mb-2">47</div>
-              <div className="text-sm font-bold uppercase tracking-wider text-slate-500">Directory Listings</div>
-            </div>
-            <div>
-              <div className="text-5xl font-black text-yellow-400 mb-2">100%</div>
-              <div className="text-sm font-bold uppercase tracking-wider text-slate-500">On-Time Delivery</div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* FAQ Section */}
-      <section className="py-32 px-6 bg-slate-950">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center space-y-4 mb-20">
-            <h2 className="text-5xl md:text-7xl font-black tracking-tighter uppercase">
-              FAQ
-            </h2>
-          </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+              <div className="hidden md:block absolute top-12 left-[16%] right-[16%] h-0.5 bg-slate-200 dark:bg-slate-700 -z-10 border-t-2 border-dashed border-slate-300 dark:border-slate-600"></div>
 
-          <div className="space-y-4">
-            {FAQS.map((faq, idx) => (
-              <div
-                key={idx}
-                className="border border-slate-800 bg-slate-900/50"
-              >
-                <button
-                  onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                  className="w-full flex items-center justify-between p-6 text-left hover:bg-slate-800/50 transition-colors"
-                >
-                  <span className="font-black uppercase tracking-tight text-lg pr-4">
-                    {faq.question}
-                  </span>
-                  <ChevronDown
-                    className={`w-6 h-6 shrink-0 transition-transform ${
-                      openFaq === idx ? 'rotate-180' : ''
-                    }`}
-                  />
-                </button>
-                {openFaq === idx && (
-                  <div className="px-6 pb-6 text-slate-400 font-bold leading-relaxed">
-                    {faq.answer}
+              {[
+                { icon: Phone, title: "Strategy Call", description: "We define your goals, target audience, and key offer in a focused 30-minute session." },
+                { icon: Wrench, title: "Rapid Build", description: "Our team builds your site and sets up automations within 5 business days." },
+                { icon: Rocket, title: "Growth Launch", description: "We launch your site, list you in the directory, and activate your review engine." }
+              ].map((step, idx) => {
+                const IconComponent = step.icon;
+                return (
+                  <div key={idx} className="flex flex-col items-center text-center gap-4 group">
+                    <div className="w-24 h-24 rounded-full bg-white dark:bg-slate-800 border-4 border-white dark:border-slate-800 shadow-lg flex items-center justify-center text-blue-500 group-hover:scale-110 transition-transform duration-300 relative z-10">
+                      <IconComponent className="w-10 h-10" />
+                      <div className="absolute -top-2 -right-2 w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                        {idx + 1}
+                      </div>
+                    </div>
+                    <h3 className="text-xl font-bold mt-2">{step.title}</h3>
+                    <p className="text-slate-600 dark:text-slate-400 max-w-xs">{step.description}</p>
                   </div>
-                )}
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* Testimonials */}
+        <section className="px-4 py-16 md:py-24 bg-white dark:bg-slate-900" id="testimonials">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+              <div>
+                <h2 className="text-3xl font-bold">Trusted by Pensacola Locals</h2>
+                <p className="mt-2 text-slate-600 dark:text-slate-400">
+                  Join dozens of local businesses growing with Digital Duo.
+                </p>
               </div>
-            ))}
+              <div className="flex gap-2">
+                <button className="w-10 h-10 rounded-full border border-slate-200 dark:border-slate-700 flex items-center justify-center hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                  <ArrowLeft className="w-5 h-5" />
+                </button>
+                <button className="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center hover:bg-blue-600 transition-colors">
+                  <ArrowRight className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {TESTIMONIALS.map((testimonial, idx) => (
+                <div key={idx} className="p-6 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+                  <div className="flex text-yellow-400 mb-4">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-current" />
+                    ))}
+                  </div>
+                  <p className="text-slate-700 dark:text-slate-300 mb-6 leading-relaxed">
+                    {testimonial.text}
+                  </p>
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-slate-300 overflow-hidden">
+                      <img src={testimonial.image} alt={testimonial.name} className="w-full h-full object-cover" />
+                    </div>
+                    <div>
+                      <p className="font-bold text-sm">{testimonial.name}</p>
+                      <p className="text-xs text-slate-500">{testimonial.role}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Final CTA */}
-      <section className="py-32 px-6 bg-gradient-to-br from-blue-950/50 via-slate-950 to-cyan-950/50">
-        <div className="max-w-4xl mx-auto text-center space-y-12">
-          <h2 className="text-5xl md:text-7xl font-black tracking-tighter uppercase">
-            Ready to<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
-              Launch?
-            </span>
-          </h2>
-          <p className="text-2xl text-slate-400 font-bold">
-            Pick a package. Book a call. Go live in days.
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-            <button className="group px-12 py-6 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-black text-xl uppercase tracking-widest transition-all duration-300 flex items-center gap-3">
-              <Calendar className="w-6 h-6" />
-              <span>Schedule Discovery Call</span>
+        {/* CTA Section */}
+        <section className="px-4 py-20 bg-blue-500 text-white">
+          <div className="max-w-4xl mx-auto text-center flex flex-col items-center gap-6">
+            <h2 className="text-3xl md:text-5xl font-black tracking-tight">
+              Ready to Dominate Your Market?
+            </h2>
+            <p className="text-lg text-blue-100 max-w-2xl">
+              Stop losing customers to outdated tech. Get a modern site and automated growth engine today.
+            </p>
+            <button className="mt-4 px-8 py-4 bg-white text-blue-500 text-lg font-bold rounded-lg hover:bg-blue-50 transition-colors shadow-xl">
+              Get Your Free Strategy Call
             </button>
-
-            <a
-              href="#packages"
-              className="px-12 py-6 border-2 border-slate-700 hover:border-blue-500 text-white font-black text-xl uppercase tracking-widest transition-all duration-300"
-            >
-              View Pricing Again
-            </a>
           </div>
-
-          <div className="pt-8 flex items-center justify-center gap-2 text-sm font-bold text-slate-500 uppercase tracking-wider">
-            <Shield className="w-4 h-4" />
-            <span>No contracts. No surprises. Just results.</span>
-          </div>
-        </div>
-      </section>
+        </section>
+      </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-800 py-12 px-6 bg-slate-950">
+      <footer className="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 pt-16 pb-8 px-4">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-8">
-            <div className="text-center md:text-left">
-              <div className="text-2xl font-black uppercase tracking-tight mb-2">
-                Digital Duo Studio
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+            <div className="md:col-span-1 flex flex-col gap-4">
+              <div className="flex items-center gap-2">
+                <Zap className="w-6 h-6 text-blue-500" />
+                <span className="font-bold text-lg">Digital Duo Studio</span>
               </div>
-              <div className="text-sm text-slate-500 font-bold uppercase tracking-wider">
-                Pensacola's Productized Web Studio
+              <p className="text-slate-500 text-sm leading-relaxed">
+                Helping Pensacola businesses grow through modern web design, automation, and community connection.
+              </p>
+            </div>
+            
+            <div>
+              <h4 className="font-bold mb-4">Services</h4>
+              <ul className="flex flex-col gap-2 text-sm text-slate-500">
+                <li><a className="hover:text-blue-500 transition-colors" href="#">Web Design</a></li>
+                <li><a className="hover:text-blue-500 transition-colors" href="#">Local Automations</a></li>
+                <li><a className="hover:text-blue-500 transition-colors" href="#">Directory Listing</a></li>
+                <li><a className="hover:text-blue-500 transition-colors" href="#">SEO Services</a></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="font-bold mb-4">Company</h4>
+              <ul className="flex flex-col gap-2 text-sm text-slate-500">
+                <li><a className="hover:text-blue-500 transition-colors" href="#">About Us</a></li>
+                <li><a className="hover:text-blue-500 transition-colors" href="#">Process</a></li>
+                <li><a className="hover:text-blue-500 transition-colors" href="#">Careers</a></li>
+                <li><a className="hover:text-blue-500 transition-colors" href="#">Contact</a></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="font-bold mb-4">Connect</h4>
+              <div className="flex gap-4">
+                <a className="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-slate-700 transition-colors" href="#">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+                </a>
+                <a className="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-slate-700 transition-colors" href="#">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 014.15 2.525c.636-.247 1.363-.416 2.427-.465C7.673 2.013 8.044 2 10.328 2h1.988zm-.952 1.802h-1.034c-2.266 0-2.548.009-3.44.049-.864.04-1.332.186-1.644.31a2.75 2.75 0 00-1.02.663 2.75 2.75 0 00-.663 1.02c-.124.312-.27.78-.31 1.644-.04.892-.049 1.174-.049 3.44v1.034c0 2.266.009 2.548.049 3.44.04.864.186 1.332.31 1.644.145.372.337.67.663 1.02.35.326.648.518 1.02.663.312.124.78.27 1.644.31.892.04 1.174.049 3.44.049h1.034c2.266 0 2.548-.009 3.44-.049.864-.04 1.332-.186 1.644-.31a2.75 2.75 0 001.02-.663 2.75 2.75 0 00.663-1.02c.124-.312.27-.78.31-1.644.04-.892.049-1.174.049-3.44v-1.034c0-2.266-.009-2.548-.049-3.44-.04-.864-.186-1.332-.31-1.644a2.75 2.75 0 00-.663-1.02 2.75 2.75 0 00-1.02-.663c-.312-.124-.78-.27-1.644-.31-.892-.04-1.174-.049-3.44-.049zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"/></svg>
+                </a>
+                <a className="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-slate-700 transition-colors" href="#">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"/></svg>
+                </a>
               </div>
             </div>
-
-            <div className="flex flex-wrap justify-center gap-8 text-sm font-bold uppercase tracking-wider">
-              <a href="#packages" className="text-slate-400 hover:text-white transition-colors">
-                Packages
-              </a>
-              <Link href="/demo-pages" className="text-slate-400 hover:text-white transition-colors">
-                Directory
-              </Link>
-              <a href="#" className="text-slate-400 hover:text-white transition-colors">
-                Contact
-              </a>
-              <a href="#" className="text-slate-400 hover:text-white transition-colors">
-                FAQ
-              </a>
-            </div>
-
-            <div className="text-sm text-slate-500 font-bold uppercase tracking-wider text-center md:text-right">
-              Built in Pensacola 🌴<br />
-              © 2026 Digital Duo Studio
+          </div>
+          
+          <div className="border-t border-slate-200 dark:border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-400">
+            <p>© 2026 Digital Duo Studio. All rights reserved.</p>
+            <div className="flex gap-6">
+              <a className="hover:text-blue-500" href="#">Privacy Policy</a>
+              <a className="hover:text-blue-500" href="#">Terms of Service</a>
             </div>
           </div>
         </div>
       </footer>
-
-      {/* Sticky Mobile CTA */}
-      <div className="fixed bottom-0 left-0 right-0 p-4 bg-slate-950/95 backdrop-blur-sm border-t border-slate-800 md:hidden z-40">
-        <a
-          href="#packages"
-          className="block w-full py-4 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-black uppercase tracking-widest text-center"
-        >
-          View Packages
-        </a>
-      </div>
-    </main>
+    </div>
   );
 }
