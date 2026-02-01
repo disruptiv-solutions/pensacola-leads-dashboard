@@ -4,6 +4,14 @@ import Link from "next/link";
 
 const businesses = [
   {
+    id: "james-debris-logistics",
+    name: "James Debris Logistics",
+    type: "Automated Removal",
+    priority: "High",
+    description: "Automated debris logistics hub with satellite yard analysis and instant pricing.",
+    image: "https://images.unsplash.com/photo-1533900298318-6b8da08a523e?auto=format&fit=crop&q=80&w=1000"
+  },
+  {
     id: "guy-brothers-roofing",
     name: "Guy Brothers Roofing",
     type: "Storm Response",
