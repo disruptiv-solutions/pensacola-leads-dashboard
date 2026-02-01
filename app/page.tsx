@@ -4,6 +4,14 @@ import Link from "next/link";
 
 const businesses = [
   {
+    id: "victoria-cleaning",
+    name: "Victoria P. Kelly",
+    type: "Cleaning Membership",
+    priority: "High",
+    description: "High-end cleaning memberships for Crestview homes. Recurring monthly revenue model.",
+    image: "https://images.unsplash.com/photo-1581578731548-c64695cc6958?auto=format&fit=crop&q=80&w=1000"
+  },
+  {
     id: "erma-septic",
     name: "Erma Septic Service",
     type: "Emergency Sewer",
