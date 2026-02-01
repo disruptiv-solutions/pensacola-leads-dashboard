@@ -4,6 +4,14 @@ import Link from "next/link";
 
 const businesses = [
   {
+    id: "sweet-sarah-desserts",
+    name: "Sweet Sarah Desserts",
+    type: "Custom Bakery",
+    priority: "High",
+    description: "Elegant dessert design studio with flavor builder, flash sale countdown, and occasion-based templates.",
+    image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&q=80&w=1000"
+  },
+  {
     id: "all-about-boba",
     name: "All About Boba Café",
     type: "Asian Café & Boba",
