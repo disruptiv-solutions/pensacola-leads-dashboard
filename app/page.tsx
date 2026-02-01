@@ -4,6 +4,14 @@ import Link from "next/link";
 
 const businesses = [
   {
+    id: "estaba-motix-pensacola",
+    name: "Estaba Motix Pensacola",
+    type: "Auto Repair Shop",
+    priority: "High",
+    description: "Automotive service command center with free diagnostic booking, warranty calculator, and shuttle service scheduler.",
+    image: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&q=80&w=1000"
+  },
+  {
     id: "sweet-sarah-desserts",
     name: "Sweet Sarah Desserts",
     type: "Custom Bakery",
